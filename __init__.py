@@ -5,5 +5,5 @@ from compute_node import CPUInfomation, MemoryInfomation, ComputeNode
 
 from mongoengine import connect
 
-def initial(config):
-    connect(config.get('controller','mongodb.name'), host=config.get('controller', 'mongodb.url'))
+def initial(setting):
+    connect(setting.get('mongodb.name'), host=setting.get('mongodb.url'))
