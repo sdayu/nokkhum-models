@@ -15,7 +15,7 @@ class Camera(Document):
     user =  ReferenceField(User)
     camera_model = ReferenceField('CameraModel')
     
-    processors = DictField()
+    processors = ListField(DictField())
     
     create_date = DateTimeField(required=True, default=datetime.datetime.now())
     update_date = DateTimeField(required=True, default=datetime.datetime.now())
