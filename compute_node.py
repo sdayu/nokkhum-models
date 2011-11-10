@@ -1,6 +1,5 @@
 from mongoengine import *
 import datetime
-from users import User
 
 class CPUInfomation(EmbeddedDocument):
     count   = IntField(required=True, default=0)
