@@ -1,5 +1,5 @@
 from users import User, Group
-from cameras import Camera, CameraModel, Manufactory
+from cameras import CameraOperating, Camera, CameraModel, Manufactory
 from image_processors import ImageProcessor
 from compute_node import CPUInfomation, MemoryInfomation, ComputeNode
 
