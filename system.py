@@ -7,8 +7,8 @@ Created on Nov 8, 2011
 from mongoengine import *
 import datetime
 
-class OperatingQueue(Document):
-    meta = {'collection': 'operating_queue'}
+class CameraCommandQueue(Document):
+    meta = {'collection': 'camera_command_queue'}
     
     camera  = ReferenceField("Camera")
     action  = StringField(required=True, default='Waiting')
