@@ -4,11 +4,11 @@ import datetime
 class User(Document):
     meta = {'collection' : 'users'}
     
-    username = StringField(max_length=100, required=True, unique=True, primary_key=True)
-    password = StringField(required=True)
-    email = StringField(required=True, unique=True)
-    first_name = StringField(max_length=100)
-    last_name = StringField(max_length=100)
+    id          = SequenceField(required=True, unique=True, primary_key=True)
+    password    = StringField(required=True)
+    email       = StringField(required=True, unique=True)
+    first_name  = StringField(max_length=100, required=True)
+    last_name   = StringField(max_length=100)
     
     group = ReferenceField('Group', required=True)
     

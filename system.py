@@ -10,6 +10,7 @@ import datetime
 class CameraCommandQueue(Document):
     meta = {'collection': 'camera_command_queue'}
     
+    id      = SequenceField(required=True, unique=True, primary_key=True)
     camera  = ReferenceField("Camera")
     action  = StringField(required=True, default='Waiting')
     date    = DateTimeField(required=True, default=datetime.datetime.now())
@@ -18,7 +19,7 @@ class CameraCommandQueue(Document):
 class CommandLog(Document):
     meta = {'collection': 'command_log'}
     
-    id      = SequenceField(required=True)
+    id      = SequenceField(required=True, unique=True, primary_key=True)
     camera  = ReferenceField("Camera")
     action  = StringField(required=True, default='Waiting')
     user    = ReferenceField("User")
