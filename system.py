@@ -12,7 +12,8 @@ class CameraCommandQueue(Document):
     
     id      = SequenceField(required=True, unique=True, primary_key=True)
     camera  = ReferenceField("Camera")
-    action  = StringField(required=True, default='Waiting')
+    action  = StringField(required=True, default='No-operating')
+    status  = StringField(required=True, default='Waiting')
     date    = DateTimeField(required=True, default=datetime.datetime.now())
     user    = ReferenceField("User")
     
