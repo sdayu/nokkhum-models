@@ -31,7 +31,7 @@ class Camera(Document):
     image_size  = StringField(required=True)
     fps         = IntField(required=True)
     status      = StringField(required=True, default='Active')
-    user        = ReferenceField(User)
+    owner       = ReferenceField(User)
     camera_model = ReferenceField('CameraModel', required=True)
     
     processors  = ListField(DictField())

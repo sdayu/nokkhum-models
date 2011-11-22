@@ -15,7 +15,7 @@ class CameraCommandQueue(Document):
     action  = StringField(required=True, default='No-operating')
     status  = StringField(required=True, default='Waiting')
     date    = DateTimeField(required=True, default=datetime.datetime.now())
-    user    = ReferenceField("User")
+    owner   = ReferenceField("User")
     
 class CommandLog(Document):
     meta = {'collection': 'command_log'}
@@ -23,7 +23,7 @@ class CommandLog(Document):
     id      = SequenceField(required=True, unique=True, primary_key=True)
     camera  = ReferenceField("Camera")
     action  = StringField(required=True, default='Waiting')
-    user    = ReferenceField("User")
+    owner   = ReferenceField("User")
     attributes      = DictField()
     compute_node    = EmbeddedDocumentField("ComputeNode")
     command_date    = DateTimeField(required=True, default=datetime.datetime.now())
