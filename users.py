@@ -9,13 +9,13 @@ class User(Document):
     email       = StringField(required=True, unique=True)
     first_name  = StringField(max_length=100, required=True)
     last_name   = StringField(max_length=100)
-    
-    group = ReferenceField('Group', required=True)
+    status      = StringField(max_length=100, required=True, default="Active")
+    group       = ReferenceField('Group', required=True)
     
     registration_date = DateTimeField(required=True, default=datetime.datetime.now())
     update_date = DateTimeField(required=True, default=datetime.datetime.now())
     
-    ip_address = StringField(max_length=100, required=True, default='0.0.0.0')
+    ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
     
     
 class Group(Document):
