@@ -14,7 +14,8 @@ class CameraCommandQueue(Document):
     camera  = ReferenceField("Camera")
     action  = StringField(required=True, default='No-operating')
     status  = StringField(required=True, default='Waiting')
-    date    = DateTimeField(required=True, default=datetime.datetime.now())
+    command_date    = DateTimeField(required=True, default=datetime.datetime.now())
+    update_date     = DateTimeField(required=True, default=datetime.datetime.now())
     owner   = ReferenceField("User")
     
 class CommandLog(Document):
