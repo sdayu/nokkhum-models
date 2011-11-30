@@ -17,6 +17,7 @@ class CameraCommandQueue(Document):
     command_date    = DateTimeField(required=True, default=datetime.datetime.now())
     update_date     = DateTimeField(required=True, default=datetime.datetime.now())
     owner   = ReferenceField("User")
+    message = StringField()
     
 class CommandLog(Document):
     meta = {'collection': 'command_log'}
@@ -29,3 +30,4 @@ class CommandLog(Document):
     compute_node    = EmbeddedDocumentField("ComputeNode")
     command_date    = DateTimeField(required=True, default=datetime.datetime.now())
     complete_date   = DateTimeField(required=True, default=datetime.datetime.now())
+    message         = StringField()
