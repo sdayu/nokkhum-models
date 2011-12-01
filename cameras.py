@@ -15,9 +15,10 @@ class CameraModel(Document):
     manufactory = ReferenceField(Manufactory, required=True)
     create_date = DateTimeField(required=True, default=datetime.datetime.now())    
     
-class CameraOperating(EmbeddedDocument):  
-    status      = StringField(required=True, default="Stop")
-    update_date = DateTimeField(required=True, default=datetime.datetime.now())
+class CameraOperating(EmbeddedDocument):
+    user_command = StringField(required=True, default="Suspend")
+    status       = StringField(required=True, default="Stop")
+    update_date  = DateTimeField(required=True, default=datetime.datetime.now())
     compute_node = ReferenceField("ComputeNode")
     
 class Camera(Document):
