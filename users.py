@@ -6,7 +6,7 @@ class User(Document):
     
     id          = SequenceField(required=True, unique=True, primary_key=True)
     password    = StringField(required=True)
-    email       = StringField(required=True, unique=True)
+    email       = EmailField(required=True, unique=True)
     first_name  = StringField(max_length=100, required=True)
     last_name   = StringField(max_length=100)
     status      = StringField(max_length=100, required=True, default="Active")
