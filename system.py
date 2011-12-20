@@ -30,4 +30,5 @@ class CommandLog(Document):
     compute_node    = EmbeddedDocumentField("ComputeNode")
     command_date    = DateTimeField(required=True, default=datetime.datetime.now())
     complete_date   = DateTimeField(required=True, default=datetime.datetime.now())
+    status          = StringField()
     message         = StringField()
