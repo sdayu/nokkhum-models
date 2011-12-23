@@ -30,5 +30,5 @@ class ProducerFactory:
         if name == "nokkhum_compute.update_status":
             if self.connection is None:
                 self.connection = connection.Connection()
-            self.producer = Producer(connection)
+            self.producer = Producer(self.connection)
             return self.producer
