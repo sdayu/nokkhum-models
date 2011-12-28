@@ -18,7 +18,6 @@ class ComputeNode(Document):
     system  = StringField(max_length=100, required=True)
     host    = StringField(max_length=100, required=True)
     machine = StringField(max_length=100, required=True)
-    port    = IntField(required=True)
     cpu     = EmbeddedDocumentField("CPUInfomation", required=True)
     memory  = EmbeddedDocumentField("MemoryInfomation", required=True)
     
