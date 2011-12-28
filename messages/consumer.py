@@ -13,7 +13,7 @@ from . import queues
 
 class Consumer:
 
-    def __init__(self, exchange_name, channel, routing_key, callback=[]):
+    def __init__(self, exchange_name, channel, routing_key, callback=None):
         self.exchange_name = exchange_name
         self.callback = callback
         self.routing_key = routing_key
@@ -25,11 +25,11 @@ class Consumer:
         queue = queues.QueueFactory().get_queue(exchange, self.routing_key)
         queue(channel).declare()
         self._consumer = kombu.messaging.Consumer(channel, queue, callbacks=self.callback, no_ack=True)
+        self.consume()
     
     def register(self, callback):
         self._consumer.register_callback(callback)
-        self.callback.append(callback)
-        self.consume()
+        self.callback = callback
     
     def consume(self):
         self._consumer.consume()
