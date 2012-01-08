@@ -14,6 +14,9 @@ import kombu
 from . import connection
 from . import queues
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Publisher:
     def __init__(self, exchange_name, channel, routing_key):
 
@@ -28,45 +31,55 @@ class Publisher:
         exchange = Exchange(self.exchange_name, type="direct", durable=True)
         queue = queues.QueueFactory().get_queue(exchange, self.routing_key)
         queue(channel).declare()
-        
+        logger.debug( "reconnect direct")
         self._producer = kombu.messaging.Producer(exchange=exchange,
             channel=channel, serializer="json", 
             routing_key=self.routing_key)
             
-    def send(self, message):
-        self._producer.publish(message)
+    def send(self, message, routing_key=None):
+        self._producer.publish(message, routing_key=routing_key)
         
 class TopicPublisher(Publisher):
+    def __init__(self, exchange_name, channel, routing_key):
+        super(TopicPublisher,self).__init__(exchange_name, channel, routing_key) 
     
     def reconnect(self, channel):
         exchange = Exchange(self.exchange_name, type="topic", durable=True)
-        queue = queues.QueueFactory().get_queue(exchange, self.routing_key)
-        queue(channel).declare()
+#        queue = queues.QueueFactory().get_queue(exchange, self.routing_key)
+#        queue(channel).declare()
+        logger.debug( "reconnect topic")
         
         self._producer = kombu.messaging.Producer(exchange=exchange,
             channel=channel, serializer="json", 
-            routing_key=self.routing_key)  
+            routing_key=self.routing_key)
+        
         
 class PublisherFactory:
     def __init__(self):
         self.connection = None
-        self.publisher_pool = {}
     
     
-    def get_producer(self, name):
+    def get_publisher(self, key):
         
         if self.connection is None:
             self.connection = connection.default_connection.get_broker_connection()
                 
-        if name == "nokkhum_compute.update_status":
+        if key == "nokkhum_compute.update_status":
             routing_key = "nokkhum_compute.update_status"
-            if routing_key in self.publisher_pool.keys():
-                return self.publisher_pool["nokkhum_compute.update_status"]
             
             channel = self.connection.channel()
             
-            publisher = Publisher("nokkunm_compute", channel, routing_key)
-            self.publisher_pool["nokkhum_compute.update_status"] = publisher
+            publisher = Publisher("nokkunm_compute.update_status", channel, routing_key)
+            logger.debug("get pub: %s"% publisher)
             return publisher
         
-        elif name == "nokkhum_compute.update_status":
+        else:
+            import fnmatch, re
+            regex = fnmatch.translate('nokkunm_compute.*.*')
+            reobj = re.compile(regex)
+            if reobj.match(key):
+                routing_key = key
+                channel = self.connection.channel()
+                publisher = TopicPublisher("nokkunm_compute.command", channel, routing_key)
+                logger.debug("get pub: %s"%publisher)
+                return publisher
