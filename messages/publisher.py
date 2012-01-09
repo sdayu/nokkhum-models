@@ -31,7 +31,6 @@ class Publisher:
         exchange = Exchange(self.exchange_name, type="direct", durable=True)
         queue = queues.QueueFactory().get_queue(exchange, self.routing_key)
         queue(channel).declare()
-        logger.debug( "reconnect direct")
         self._producer = kombu.messaging.Producer(exchange=exchange,
             channel=channel, serializer="json", 
             routing_key=self.routing_key)
@@ -41,13 +40,13 @@ class Publisher:
         
 class TopicPublisher(Publisher):
     def __init__(self, exchange_name, channel, routing_key):
-        super(TopicPublisher,self).__init__(exchange_name, channel, routing_key) 
+        Publisher.__init__(self, exchange_name, channel, routing_key) 
     
     def reconnect(self, channel):
         exchange = Exchange(self.exchange_name, type="topic", durable=True)
-#        queue = queues.QueueFactory().get_queue(exchange, self.routing_key)
-#        queue(channel).declare()
-        logger.debug( "reconnect topic")
+        queue = queues.QueueFactory().get_queue(exchange, self.routing_key)
+        queue(channel).declare()
+#        logger.debug( "reconnect topic")
         
         self._producer = kombu.messaging.Producer(exchange=exchange,
             channel=channel, serializer="json", 
@@ -63,7 +62,8 @@ class PublisherFactory:
         
         if self.connection is None:
             self.connection = connection.default_connection.get_broker_connection()
-                
+        
+#        logger.debug("routing_key: %s"% key)
         if key == "nokkhum_compute.update_status":
             routing_key = "nokkhum_compute.update_status"
             
@@ -75,11 +75,11 @@ class PublisherFactory:
         
         else:
             import fnmatch, re
-            regex = fnmatch.translate('nokkunm_compute.*.*')
+            regex = fnmatch.translate('nokkhum_compute.*.*')
             reobj = re.compile(regex)
             if reobj.match(key):
                 routing_key = key
                 channel = self.connection.channel()
                 publisher = TopicPublisher("nokkunm_compute.command", channel, routing_key)
-                logger.debug("get pub: %s"%publisher)
+#                logger.debug("get pub: %s"%publisher)
                 return publisher

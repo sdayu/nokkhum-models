@@ -33,22 +33,44 @@ class Consumer:
     
     def consume(self):
         self._consumer.consume()
+        
+class TopicConsumer(Consumer):
+    
+    def __init__(self, exchange_name, channel, routing_key, callback=None):
+        Consumer.__init__(self, exchange_name, channel, routing_key)
+        
+    def reconnect(self, channel):
+        exchange = Exchange(self.exchange_name, type="topic", durable=True)
+        queue = queues.QueueFactory().get_queue(exchange, self.routing_key)
+        queue(channel).declare()
+        self._consumer = kombu.messaging.Consumer(channel, queue, callbacks=self.callback, no_ack=True)
+        self.consume()
 
 class ConsumerFactory:
     def __init__(self):
         self.connection = None
-        self.consumer = None
         
-    def get_consumer(self, name):
-        if name == "nokkhum_compute.update_status":
+    def get_consumer(self, key):
+        if self.connection is None:
+            self.connection = connection.default_connection.get_broker_connection()
+            
+        if key == "nokkhum_compute.update_status":
             routing_key = "nokkhum_compute.update_status"
-            if self.connection is None:
-                self.connection = connection.default_connection.get_broker_connection()
             
             channel = self.connection.channel()
             
-            self.consumer = Consumer("nokkunm_compute", channel, routing_key)
-            return self.consumer
+            consumer = Consumer("nokkunm_compute", channel, routing_key)
+            return consumer
+        else:
+            import fnmatch, re
+            regex = fnmatch.translate('nokkhum_compute.*.*')
+            reobj = re.compile(regex)
+            if reobj.match(key):
+                routing_key = key
+                channel = self.connection.channel()
+                consumer = TopicConsumer("nokkunm_compute.command", channel, routing_key)
+#                logger.debug("get pub: %s"%publisher)
+                return consumer
     
     def get_connection(self):
         if self.connection is None:
