@@ -63,14 +63,12 @@ class PublisherFactory:
         if self.connection is None:
             self.connection = connection.default_connection.get_broker_connection()
         
-#        logger.debug("routing_key: %s"% key)
+        logger.debug("routing_key: %s"% key)
         if key == "nokkhum_compute.update_status":
             routing_key = "nokkhum_compute.update_status"
-            
-            channel = self.connection.channel()
-            
+            channel = connection.default_connection.get_channel()
             publisher = Publisher("nokkunm_compute.update_status", channel, routing_key)
-            logger.debug("get pub: %s"% publisher)
+#            logger.debug("get pub: %s"% publisher)
             return publisher
         
         else:
@@ -79,7 +77,7 @@ class PublisherFactory:
             reobj = re.compile(regex)
             if reobj.match(key):
                 routing_key = key
-                channel = self.connection.channel()
+                channel = connection.default_connection.get_channel()
                 publisher = TopicPublisher("nokkunm_compute.command", channel, routing_key)
-#                logger.debug("get pub: %s"%publisher)
+#                logger.debug("get topic pub: %s"%publisher)
                 return publisher

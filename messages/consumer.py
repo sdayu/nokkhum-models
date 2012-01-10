@@ -11,6 +11,9 @@ from kombu import Exchange
 from . import connection
 from . import queues
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Consumer:
 
     def __init__(self, exchange_name, channel, routing_key, callback=None):
@@ -57,7 +60,7 @@ class ConsumerFactory:
         if key == "nokkhum_compute.update_status":
             routing_key = "nokkhum_compute.update_status"
             
-            channel = self.connection.channel()
+            channel = connection.default_connection.get_channel()
             
             consumer = Consumer("nokkunm_compute", channel, routing_key)
             return consumer
@@ -67,9 +70,9 @@ class ConsumerFactory:
             reobj = re.compile(regex)
             if reobj.match(key):
                 routing_key = key
-                channel = self.connection.channel()
+                channel = connection.default_connection.get_channel()
                 consumer = TopicConsumer("nokkunm_compute.command", channel, routing_key)
-#                logger.debug("get pub: %s"%publisher)
+#                logger.debug("get topic cons: %s"%consumer)
                 return consumer
     
     def get_connection(self):
