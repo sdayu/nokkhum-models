@@ -31,6 +31,8 @@ class RpcClient():
             else:
                 logger.debug('message ignore by RPC: %s'%body)
                 
+        self._consumer.register(process_message)
+                
     def call(self, message, routing_key):
         message_id = kombu.utils.uuid()
         message['message_id'] = message_id
@@ -45,3 +47,5 @@ class RpcClient():
         
     def send(self, message, routing_key):
         self._publisher.send(message, routing_key)
+        
+default_rpc_client = RpcClient()

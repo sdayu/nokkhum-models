@@ -38,6 +38,4 @@ class Connection:
         self.connection.release()
         self.connection = None
         
-
-        
 default_connection = Connection()

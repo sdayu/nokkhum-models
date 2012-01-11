@@ -66,11 +66,9 @@ class PublisherFactory:
         logger.debug("routing_key: %s"% key)
         if key == "nokkhum_compute.update_status":
             routing_key = "nokkhum_compute.update_status"
-            
             channel = connection.default_connection.get_channel()
-            
             publisher = Publisher("nokkunm_compute.update_status", channel, routing_key)
-            logger.debug("get pub: %s"% publisher)
+            # logger.debug("get pub: %s"% publisher)
             return publisher
         
         else:
@@ -81,7 +79,6 @@ class PublisherFactory:
                 routing_key = key
                 channel = connection.default_connection.get_channel()
                 publisher = TopicPublisher("nokkunm_compute.rpc", channel, routing_key)
-                logger.debug("get pub: %s"%publisher)
+                # logger.debug("get pub: %s"%publisher)
                 return publisher
             
-        logger.debug("noget publicher")
