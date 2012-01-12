@@ -11,7 +11,6 @@ from kombu.pools import producers
 from kombu import Exchange
 import kombu
 
-from . import connection
 from . import queues
 
 import logging
@@ -59,10 +58,8 @@ class PublisherFactory:
     
     
     def get_publisher(self, key):
-        
-        if self.connection is None:
-            self.connection = connection.default_connection.get_broker_connection()
-        
+        from . import connection
+        publisher = None
         logger.debug("routing_key: %s"% key)
         if key == "nokkhum_compute.update_status":
             routing_key = "nokkhum_compute.update_status"
@@ -78,7 +75,12 @@ class PublisherFactory:
             if reobj.match(key):
                 routing_key = key
                 channel = connection.default_connection.get_channel()
-                publisher = TopicPublisher("nokkunm_compute.rpc", channel, routing_key)
+                if "nokkhum_compute.*" in routing_key:
+                    publisher = TopicPublisher("nokkunm_compute.rpc", channel, routing_key)
+                else:
+                    publisher = TopicPublisher("nokkunm_compute.compute_rpc", channel, routing_key)
                 # logger.debug("get pub: %s"%publisher)
                 return publisher
+            
+        return publisher
             

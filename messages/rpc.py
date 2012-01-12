@@ -14,13 +14,19 @@ logger = logging.getLogger(__name__)
 
 import time
 
-class RpcClient():
+class RPC():
     def __init__(self):
-        self._publisher = publisher.PublisherFactory().get_publisher("nokkhum_compute.*.rpc_request")
-        self._consumer = consumer.ConsumerFactory().get_consumer("nokkhum_compute.*.rpc_request")
+        self._publisher = None
+        self._consumer = None
         
         self.message_pool = {}
         
+        self.__initial()
+        
+        
+    def __initial(self):
+        self._publisher = publisher.PublisherFactory().get_publisher("nokkhum_compute.*.rpc_request")
+        self._consumer = consumer.ConsumerFactory().get_consumer("nokkhum_compute.*.rpc_response")
         self.__regist_consumer_callback()
     
     def __regist_consumer_callback(self):
@@ -48,4 +54,44 @@ class RpcClient():
     def send(self, message, routing_key):
         self._publisher.send(message, routing_key)
         
-default_rpc_client = RpcClient()
+class RpcClient(RPC):
+    def __init__(self):    
+        RPC.__init__(self)
+        
+    def __initial(self):
+        self._publisher = publisher.PublisherFactory().get_publisher("nokkhum_compute.*.rpc_request")
+        self._consumer = consumer.ConsumerFactory().get_consumer("nokkhum_compute.*.rpc_response")
+        self.__regist_consumer_callback()
+    
+class RpcServer(RPC):
+    def __init__(self, ip):
+        self._publisher_rounting_key    = "nokkhum_compute.%s.rpc_response"%ip.replace('.', ":")
+        self._consumer_rounting_key     = "nokkhum_compute.%s.rpc_request"%ip.replace('.', ":")
+        
+        RPC.__init__(self)
+        
+    def __initial(self):
+        self._publisher = publisher.PublisherFactory().get_publisher(self._publisher_rounting_key)
+        self._consumer = consumer.ConsumerFactory().get_consumer(self._consumer_rounting_key)
+        
+    def register_callback(self, callback):
+        self._consumer.register(callback)
+
+class RpcFactory():
+    def __init__(self):
+        self.default_rpc_client = None
+        self.default_rpc_server = None
+        
+    def get_default_rpc_client(self):
+        if self.default_rpc_client is None:
+            self.default_rpc_client = RpcClient()
+        return self.default_rpc_client
+    
+    def get_default_rpc_server(self, ip):
+        if self.default_rpc_server is None:
+            self.default_rpc_server = RpcServer(ip)
+        return self.default_rpc_server
+    
+        
+
+    

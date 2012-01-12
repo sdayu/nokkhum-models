@@ -7,8 +7,6 @@ import kombu
 import kombu.messaging
 from kombu import Exchange
 
-
-from . import connection
 from . import queues
 
 class Consumer:
@@ -47,13 +45,11 @@ class TopicConsumer(Consumer):
         self.consume()
 
 class ConsumerFactory:
-    def __init__(self):
-        self.connection = None
         
     def get_consumer(self, key):
-        if self.connection is None:
-            self.connection = connection.default_connection.get_broker_connection()
+        from . import connection
             
+        consumer = None
         if key == "nokkhum_compute.update_status":
             routing_key = "nokkhum_compute.update_status"
             
@@ -68,12 +64,10 @@ class ConsumerFactory:
             if reobj.match(key):
                 routing_key = key
                 channel = connection.default_connection.get_channel()
-                consumer = TopicConsumer("nokkunm_compute.rpc", channel, routing_key)
+                
+                if "nokkhum_compute.*" in routing_key:
+                    consumer = TopicConsumer("nokkunm_compute.rpc", channel, routing_key)
+                else:
+                    consumer = TopicConsumer("nokkunm_compute.compute_rpc", channel, routing_key)
 #                logger.debug("get pub: %s"%publisher)
                 return consumer
-    
-    def get_connection(self):
-        if self.connection is None:
-            self.connection = connection.default_connection.get_broker_connection()
-            
-        return self.connection

@@ -1,1 +1,1 @@
-from . import publisher
+from . import connection

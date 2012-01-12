@@ -5,9 +5,11 @@ from kombu import BrokerConnection
 
 class Connection:
     def __init__(self):
-        self.connection = None
+        self.connection = self.reconnect()
         self._running = True
         self.channel = self.get_new_channel()
+        from . import rpc
+        self.rpc_factory = rpc.RpcFactory()
     
     def get_broker_connection(self):
         if self.connection is None:
@@ -24,6 +26,9 @@ class Connection:
         if self.connection is None:
             self.reconnect()
         return self.connection.channel()
+    
+    def get_rpc_factory(self):
+        return self.rpc_factory
     
     def reconnect(self):
         self.connection = BrokerConnection("amqp://guest:guest@localhost:5672/nokkhum")
