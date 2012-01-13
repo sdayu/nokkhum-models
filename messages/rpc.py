@@ -21,15 +21,15 @@ class RPC():
         
         self.message_pool = {}
         
-        self.__initial()
+        self.initial()
         
         
-    def __initial(self):
+    def initial(self):
         self._publisher = publisher.PublisherFactory().get_publisher("nokkhum_compute.*.rpc_request")
         self._consumer = consumer.ConsumerFactory().get_consumer("nokkhum_compute.*.rpc_response")
-        self.__regist_consumer_callback()
+        self.regist_default_consumer_callback()
     
-    def __regist_consumer_callback(self):
+    def regist_default_consumer_callback(self):
         def process_message(body, message):
             message.ack()
             if 'message_id' in body:
@@ -37,7 +37,7 @@ class RPC():
             else:
                 logger.debug('message ignore by RPC: %s'%body)
                 
-        self._consumer.register(process_message)
+        self._consumer.register_callback(process_message)
                 
     def call(self, message, routing_key):
         message_id = kombu.utils.uuid()
@@ -58,24 +58,30 @@ class RpcClient(RPC):
     def __init__(self):    
         RPC.__init__(self)
         
-    def __initial(self):
+    def initial(self):
         self._publisher = publisher.PublisherFactory().get_publisher("nokkhum_compute.*.rpc_request")
         self._consumer = consumer.ConsumerFactory().get_consumer("nokkhum_compute.*.rpc_response")
-        self.__regist_consumer_callback()
+        self.regist_default_consumer_callback()
+        logger.debug("initial RPC Client")
     
 class RpcServer(RPC):
     def __init__(self, ip):
-        self._publisher_rounting_key    = "nokkhum_compute.%s.rpc_response"%ip.replace('.', ":")
-        self._consumer_rounting_key     = "nokkhum_compute.%s.rpc_request"%ip.replace('.', ":")
+        self.__publisher_rounting_key    = "nokkhum_compute.%s.rpc_response"%ip.replace('.', ":")
+        self.__consumer_rounting_key     = "nokkhum_compute.%s.rpc_request"%ip.replace('.', ":")
         
         RPC.__init__(self)
         
-    def __initial(self):
-        self._publisher = publisher.PublisherFactory().get_publisher(self._publisher_rounting_key)
-        self._consumer = consumer.ConsumerFactory().get_consumer(self._consumer_rounting_key)
+    def initial(self):
+        self.__publisher = publisher.PublisherFactory().get_publisher(self.__publisher_rounting_key)
+        self.__consumer = consumer.ConsumerFactory().get_consumer(self.__consumer_rounting_key)
+        
+        logger.debug("initial RPC Server")
         
     def register_callback(self, callback):
-        self._consumer.register(callback)
+        self.__consumer.register_callback(callback)
+        
+    def reply(self, message):
+        self.__publisher.send(message, self.__publisher_rounting_key)
 
 class RpcFactory():
     def __init__(self):

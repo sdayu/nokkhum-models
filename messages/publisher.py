@@ -59,6 +59,7 @@ class PublisherFactory:
     
     def get_publisher(self, key):
         from . import connection
+        
         publisher = None
         logger.debug("routing_key: %s"% key)
         if key == "nokkhum_compute.update_status":

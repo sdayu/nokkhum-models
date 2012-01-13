@@ -9,6 +9,8 @@ from kombu import Exchange
 
 from . import queues
 
+import logging
+logger = logging.getLogger(__name__)
 class Consumer:
 
     def __init__(self, exchange_name, channel, routing_key, callback=None):
@@ -25,9 +27,11 @@ class Consumer:
         self._consumer = kombu.messaging.Consumer(channel, queue, callbacks=self.callback, no_ack=True)
         self.consume()
     
-    def register(self, callback):
+    def register_callback(self, callback):
         self._consumer.register_callback(callback)
         self.callback = callback
+        import logging
+        logger = logging.getLogger(__name__)
     
     def consume(self):
         self._consumer.consume()
@@ -50,6 +54,7 @@ class ConsumerFactory:
         from . import connection
             
         consumer = None
+        logger.debug("routing_key: %s"% key)
         if key == "nokkhum_compute.update_status":
             routing_key = "nokkhum_compute.update_status"
             
