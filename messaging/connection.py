@@ -4,8 +4,9 @@ from kombu import BrokerConnection
 #logger = logging.getLogger(__name__)
 
 class Connection:
-    def __init__(self):
-        self.connection = self.reconnect()
+    def __init__(self, url):
+        self.url = url
+        self.connection = self.reconnect(self.url)
         self._running = True
         self.channel = self.get_new_channel()
         from . import rpc
@@ -13,7 +14,7 @@ class Connection:
     
     def get_broker_connection(self):
         if self.connection is None:
-            self.reconnect()
+            self.reconnect(self.url)
             
         return self.connection
     
@@ -24,14 +25,14 @@ class Connection:
     
     def get_new_channel(self):
         if self.connection is None:
-            self.reconnect()
+            self.reconnect(self.url)
         return self.connection.channel()
     
     def get_rpc_factory(self):
         return self.rpc_factory
     
-    def reconnect(self):
-        self.connection = BrokerConnection("amqp://guest:guest@localhost:5672/nokkhum")
+    def reconnect(self, url):
+        self.connection = BrokerConnection(url)
         
     def drain_events(self):
         while self._running:
@@ -43,4 +44,9 @@ class Connection:
         self.connection.release()
         self.connection = None
         
-default_connection = Connection()
+default_connection = None
+
+def initial(url):
+    global default_connection
+    default_connection = Connection(url)
+    
