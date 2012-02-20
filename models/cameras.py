@@ -35,6 +35,8 @@ class Camera(Document):
     owner       = ReferenceField(User)
     camera_model = ReferenceField('CameraModel', required=True)
     
+    storage_periods = IntField(required=True, default="0") # in day
+    
     processors  = ListField(DictField())
     operating   = EmbeddedDocumentField("CameraOperating", required=True)
     

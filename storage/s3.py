@@ -78,3 +78,6 @@ class S3Storage:
 #        bucket.delete_keys(keys)
             
         return True
+    
+    def get_all_buckets(self):
+        return self.connection.get_all_buckets()
