@@ -26,7 +26,7 @@ class S3Storage:
     def set_buckket_name(self, name):
         if type(name) is int:
             self.bucket_name = str(name)
-        elif type(name) is str:
+        elif type(name) is str or type(name) is unicode:
             self.bucket_name = name
             
     def list_file(self, prefix=""):
