@@ -7,4 +7,4 @@ from system import CameraCommandQueue, CommandLog
 from mongoengine import connect
 
 def initial(setting):
-    connect(setting.get('mongodb.name'), host=setting.get('mongodb.url'))
+    connect(setting.get('mongodb.url'))
