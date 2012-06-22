@@ -32,8 +32,10 @@ class Camera(Document):
     image_size  = StringField(required=True)
     fps         = IntField(required=True)
     status      = StringField(required=True, default='Active')
-    owner       = ReferenceField(User)
+    
+    owner       = ReferenceField(User, required=True)
     camera_model = ReferenceField('CameraModel', required=True)
+    project     = ReferenceField('Project', required=True)
     
     storage_periods = IntField(required=True, default="0") # in day
     
