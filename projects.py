@@ -8,7 +8,7 @@ from mongoengine import *
 
 from .cameras import Camera
 
-class Projects(Document):
+class Project(Document):
     name        = StringField(required=True)
     description = StringField(required=True)
     status      = StringField(required=True, default='Active')
@@ -22,4 +22,4 @@ class Projects(Document):
     
     
     def get_camera_number(self):
-        return Camera.objects(project=self).count()
+        return Camera.objects().count()
