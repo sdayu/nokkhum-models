@@ -32,3 +32,13 @@ class CommandLog(Document):
     complete_date   = DateTimeField(required=True, default=datetime.datetime.now())
     status          = StringField(required=True)
     message         = StringField()
+    
+class CameraFailStatus(Document):
+    meta = {'collection': 'commera_fail_status'}
+    
+    camera          = ReferenceField("Camera")
+    compute_node    = ReferenceField("ComputeNode")
+    report_time     = DateTimeField(required=True, default=datetime.datetime.now())
+    process_time    = DateTimeField(required=True, default=datetime.datetime.now())
+    message         = StringField()
+
