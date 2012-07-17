@@ -34,7 +34,7 @@ class CommandLog(Document):
     message         = StringField()
     
 class CameraRunningFail(Document):
-    meta = {'collection': 'comera_running_fail'}
+    meta = {'collection': 'camera_running_fail'}
     
     camera          = ReferenceField("Camera")
     compute_node    = ReferenceField("ComputeNode")
