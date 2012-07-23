@@ -21,7 +21,7 @@ class ComputeNode(Document):
     cpu     = EmbeddedDocumentField("CPUInfomation", required=True)
     memory  = EmbeddedDocumentField("MemoryInfomation", required=True)
     
-    create_date = DateTimeField(required=True, default=datetime.datetime.now())
-    update_date = DateTimeField(required=True, default=datetime.datetime.now())
+    create_date = DateTimeField(required=True, default=datetime.datetime.now)
+    update_date = DateTimeField(required=True, default=datetime.datetime.now)
 
 

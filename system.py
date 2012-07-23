@@ -14,8 +14,8 @@ class CameraCommandQueue(Document):
     camera  = ReferenceField("Camera")
     action  = StringField(required=True, default='No-operating')
     status  = StringField(required=True, default='Waiting')
-    command_date    = DateTimeField(required=True, default=datetime.datetime.now())
-    update_date     = DateTimeField(required=True, default=datetime.datetime.now())
+    command_date    = DateTimeField(required=True, default=datetime.datetime.now)
+    update_date     = DateTimeField(required=True, default=datetime.datetime.now)
     owner   = ReferenceField("User")
     message = StringField()
     
@@ -28,8 +28,8 @@ class CommandLog(Document):
     owner   = ReferenceField("User")
     attributes      = DictField()
     compute_node    = EmbeddedDocumentField("ComputeNode")
-    command_date    = DateTimeField(required=True, default=datetime.datetime.now())
-    complete_date   = DateTimeField(required=True, default=datetime.datetime.now())
+    command_date    = DateTimeField(required=True, default=datetime.datetime.now)
+    complete_date   = DateTimeField(required=True, default=datetime.datetime.now)
     status          = StringField(required=True)
     message         = StringField()
     
@@ -38,7 +38,7 @@ class CameraRunningFail(Document):
     
     camera          = ReferenceField("Camera")
     compute_node    = ReferenceField("ComputeNode")
-    report_time     = DateTimeField(required=True, default=datetime.datetime.now())
-    process_time    = DateTimeField(required=True, default=datetime.datetime.now())
+    report_time     = DateTimeField(required=True, default=datetime.datetime.now)
+    process_time    = DateTimeField(required=True, default=datetime.datetime.now)
     message         = StringField()
 

@@ -6,19 +6,19 @@ class Manufactory(Document):
     meta = {'collection': 'camera_manufactories'}
     
     name        = StringField(max_length=100, required=True)
-    create_date = DateTimeField(required=True, default=datetime.datetime.now())
+    create_date = DateTimeField(required=True, default=datetime.datetime.now)
     
 class CameraModel(Document):
     meta = {'collection': 'camera_models'}
     
     name        = StringField(max_length=100, required=True)
     manufactory = ReferenceField(Manufactory, required=True)
-    create_date = DateTimeField(required=True, default=datetime.datetime.now())    
+    create_date = DateTimeField(required=True, default=datetime.datetime.now)    
     
 class CameraOperating(EmbeddedDocument):
     user_command = StringField(required=True, default="Suspend")
     status       = StringField(required=True, default="Stop")
-    update_date  = DateTimeField(required=True, default=datetime.datetime.now())
+    update_date  = DateTimeField(required=True, default=datetime.datetime.now)
     compute_node = ReferenceField("ComputeNode")
     
 class Camera(Document):
@@ -42,8 +42,8 @@ class Camera(Document):
     processors  = ListField(DictField())
     operating   = EmbeddedDocumentField("CameraOperating", required=True)
     
-    create_date = DateTimeField(required=True, default=datetime.datetime.now())
-    update_date = DateTimeField(required=True, default=datetime.datetime.now())
+    create_date = DateTimeField(required=True, default=datetime.datetime.now)
+    update_date = DateTimeField(required=True, default=datetime.datetime.now)
     
     ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
 
