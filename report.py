@@ -16,7 +16,7 @@ class CameraProcessStatus(EmbeddedDocument):
 class ComputeNodeReport(Document):
     meta = {'collection': 'compute_node_report'}
     
-    compute_node    = ReferenceField("ComputeNote")
+    compute_node    = ReferenceField("ComputeNode")
     
     report_date     = DateTimeField(required=True, default=datetime.datetime.now)
     
