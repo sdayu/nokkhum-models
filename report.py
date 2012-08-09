@@ -23,5 +23,5 @@ class ComputeNodeReport(Document):
     cpu             = EmbeddedDocumentField("CPUInfomation", required=True)
     memory          = EmbeddedDocumentField("MemoryInfomation", required=True)
       
-    camera          = ListField(EmbeddedDocumentField(CameraProcessStatus))
+    camera_process_status = ListField(EmbeddedDocumentField(CameraProcessStatus))
     
