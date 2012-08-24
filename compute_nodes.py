@@ -36,8 +36,8 @@ class ComputeNode(Document):
     system  = StringField(max_length=100)
     host    = StringField(max_length=100, required=True)
     machine = StringField(max_length=100)
-    cpu     = EmbeddedDocumentField("CPUInfomation", required=True)
-    memory  = EmbeddedDocumentField("MemoryInfomation", required=True)
+    cpu     = EmbeddedDocumentField("CPUInfomation", required=True, default=CPUInfomation())
+    memory  = EmbeddedDocumentField("MemoryInfomation", required=True, default=MemoryInfomation())
     
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
