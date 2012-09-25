@@ -1,6 +1,6 @@
 from mongoengine import *
 import datetime
-from users import User
+from .users import User
 
 class Manufactory(Document):
     meta = {'collection': 'camera_manufactories'}
