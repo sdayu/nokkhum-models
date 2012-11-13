@@ -21,7 +21,8 @@ class User(Document):
 class Group(Document):
     meta = {'collection' : 'groups'}
     
-    name = StringField(max_length=100, required=True, unique=True, primary_key=True)
+    id          = SequenceField(required=True, unique=True, primary_key=True)
+    name        = StringField(max_length=100, required=True)
     
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
