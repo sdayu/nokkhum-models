@@ -10,7 +10,7 @@ class User(Document):
     first_name  = StringField(max_length=100, required=True)
     last_name   = StringField(max_length=100)
     status      = StringField(max_length=100, required=True, default="Active")
-    group       = ReferenceField('Group', required=True)
+    role        = ListField[ReferenceField('role', required=True)]
     
     registration_date = DateTimeField(required=True, default=datetime.datetime.now)
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
@@ -18,8 +18,8 @@ class User(Document):
     ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
     
     
-class Group(Document):
-    meta = {'collection' : 'groups'}
+class Role(Document):
+    meta = {'collection' : 'roles'}
     
     id          = SequenceField(required=True, unique=True, primary_key=True)
     name        = StringField(max_length=100, required=True)
