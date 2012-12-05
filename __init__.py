@@ -1,4 +1,4 @@
-from .users import User, Role
+from .users import User, Role, Token
 from .projects import Project
 from .cameras import CameraOperating, Camera, CameraModel, Manufactory
 from .image_processors import ImageProcessor
