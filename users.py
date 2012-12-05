@@ -33,4 +33,6 @@ class Token(Document):
     meta = {'collection' : 'tokens'}
     
     user = ReferenceField('User')
-    expired = DateTimeField(required=True)
+    expired_date = DateTimeField(required=True)
+    ip_address = StringField(max_length=100, required=True, default='0.0.0.0')
+    access_date = DateTimeField(required=True)
