@@ -28,3 +28,9 @@ class Role(Document):
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
     
     ip_address = StringField(max_length=100, required=True, default='0.0.0.0')
+    
+class Token(Document):
+    meta = {'collection' : 'tokens'}
+    
+    user = ReferenceField('User')
+    expired = DateTimeField(required=True)
