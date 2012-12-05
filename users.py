@@ -10,7 +10,7 @@ class User(Document):
     first_name  = StringField(max_length=100, required=True)
     last_name   = StringField(max_length=100)
     status      = StringField(max_length=100, required=True, default="Active")
-    roles       = ListField[ReferenceField('Role')]
+    roles       = ListField(ReferenceField('Role'))
     
     registration_date = DateTimeField(required=True, default=datetime.datetime.now)
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
