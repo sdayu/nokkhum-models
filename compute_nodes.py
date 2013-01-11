@@ -27,6 +27,8 @@ class VMInstance(EmbeddedDocument):
     
     start_instance_date     = DateTimeField(required=True, default=datetime.datetime.now)
     terminate_instance_date = DateTimeField()
+    
+    status          = StringField()
 
 
 class ComputeNode(Document):
