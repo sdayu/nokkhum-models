@@ -34,6 +34,7 @@ class Camera(Document):
     status      = StringField(required=True, default='Active')
     
     owner       = ReferenceField(User, required=True)
+    
     camera_model = ReferenceField('CameraModel', required=True)
     project     = ReferenceField('Project', required=True)
     
@@ -46,4 +47,5 @@ class Camera(Document):
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
     
     ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
+    
 
