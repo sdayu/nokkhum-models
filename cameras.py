@@ -16,8 +16,8 @@ class CameraModel(Document):
     create_date = DateTimeField(required=True, default=datetime.datetime.now)    
     
 class CameraOperating(EmbeddedDocument):
-    user_command = StringField(required=True, default="Suspend")
-    status       = StringField(required=True, default="Stop")
+    user_command = StringField(required=True, default="suspend")
+    status       = StringField(required=True, default="stop")
     update_date  = DateTimeField(required=True, default=datetime.datetime.now)
     compute_node = ReferenceField("ComputeNode")
     
@@ -31,7 +31,7 @@ class Camera(Document):
     url         = StringField(required=True)
     image_size  = StringField(required=True)
     fps         = IntField(required=True)
-    status      = StringField(required=True, default='Active')
+    status      = StringField(required=True, default='active')
     
     owner       = ReferenceField(User, required=True)
     

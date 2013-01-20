@@ -9,7 +9,7 @@ class User(Document):
     email       = EmailField(required=True, unique=True)
     first_name  = StringField(max_length=100, required=True)
     last_name   = StringField(max_length=100)
-    status      = StringField(max_length=100, required=True, default="Active")
+    status      = StringField(max_length=100, required=True, default="active")
     roles       = ListField(ReferenceField('Role'))
     
     registration_date = DateTimeField(required=True, default=datetime.datetime.now)

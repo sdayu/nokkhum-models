@@ -24,7 +24,7 @@ class Project(Document):
     id          = SequenceField(required=True, unique=True, primary_key=True)
     name        = StringField(required=True)
     description = StringField(required=True)
-    status      = StringField(required=True, default='Active')
+    status      = StringField(required=True, default='active')
     
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
