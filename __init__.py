@@ -1,5 +1,5 @@
 from .users import User, Role, Token
-from .projects import Project
+from .projects import Project, Collaborator, CollboratorPermission
 from .cameras import CameraOperating, Camera, CameraModel, Manufactory
 from .image_processors import ImageProcessor
 from .compute_nodes import CPUInfomation, MemoryInfomation, ComputeNode, VMInstance
