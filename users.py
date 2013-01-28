@@ -17,7 +17,12 @@ class User(Document):
     
     ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
     
-    
+    def set_password(self, password):
+        from pyramid.threadlocal import get_current_request
+        request = get_current_request()
+        self.password = request.secret_manager.get_hash_password(password)
+        
+        
 class Role(Document):
     meta = {'collection' : 'roles'}
     
