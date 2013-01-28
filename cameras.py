@@ -21,7 +21,7 @@ class CameraOperating(EmbeddedDocument):
     update_date  = DateTimeField(required=True, default=datetime.datetime.now)
     compute_node = ReferenceField("ComputeNode")
     
-    define_operating_status = ["start", "starting", "running", "stop", "stopping"]
+    define_operating_status = ["start", "starting", "running", "stopping", "stop"]
     define_user_commands    = ["stop", "run", "suspend"]
     
 class Camera(Document):
