@@ -10,6 +10,7 @@ class CameraProcessStatus(EmbeddedDocument):
     cpu     = FloatField(default=0)
     memory  = IntField(default=0)
     threads = IntField(default=0)
+    message = DictField()
     
     camera  = ReferenceField("Camera")
 
