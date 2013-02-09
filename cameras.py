@@ -31,6 +31,8 @@ class Camera(Document):
     username    = StringField(max_length=100, required=True)
     password    = StringField()
     name        = StringField(required=True)
+    host        = StringField()
+    port        = IntField()
     video_url   = StringField(required=True)
     audio_url   = StringField()
     image_url   = StringField()
