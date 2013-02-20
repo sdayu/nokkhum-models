@@ -51,5 +51,21 @@ class ComputeNode(Document):
             return False
         
         return True
+    
+    def is_online(self):
+        delta = datetime.timedelta(minutes=1)
+        now = datetime.datetime.now()
+                
+        if self.update_date > now-delta:
+            return True
+        
+        return False
+    
+    def is_available_resource(self):
+        if self.cpu.usage < 90\
+            and self.memory.free%1000000 > 2:
+            return True
+            
+        return False
         
 
