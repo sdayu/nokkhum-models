@@ -63,7 +63,7 @@ class ComputeNode(Document):
     
     def is_available_resource(self):
         if self.cpu.usage < 85\
-            and self.memory.free%1000000 > 2:
+            and self.memory.free%1000000 > 100:
             return True
             
         return False
