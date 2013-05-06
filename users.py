@@ -37,7 +37,7 @@ class Role(Document):
 class Token(Document):
     meta = {'collection' : 'tokens'}
     
-    user = ReferenceField('User')
+    user = ReferenceField('User', dbref=True)
     access_date = DateTimeField(required=True)
     expired_date = DateTimeField(required=True)
     ip_address = StringField(max_length=100, required=True, default='0.0.0.0')

@@ -16,16 +16,16 @@ class CameraCommandQueue(Document):
     status  = StringField(required=True, default='waiting')
     command_date    = DateTimeField(required=True, default=datetime.datetime.now)
     update_date     = DateTimeField(required=True, default=datetime.datetime.now)
-    owner   = ReferenceField("User")
+    owner   = ReferenceField("User", dbref=True)
     message = StringField()
     
 class CommandLog(Document):
     meta = {'collection': 'command_log'}
     
     id      = SequenceField(required=True, unique=True, primary_key=True)
-    camera  = ReferenceField("Camera")
+    camera  = ReferenceField("Camera", dbref=True)
     action  = StringField(required=True, default='waiting')
-    owner   = ReferenceField("User")
+    owner   = ReferenceField("User", dbref=True)
     attributes      = DictField()
     compute_node    = EmbeddedDocumentField("ComputeNode")
     command_date    = DateTimeField(required=True, default=datetime.datetime.now)
@@ -36,8 +36,8 @@ class CommandLog(Document):
 class CameraRunningFail(Document):
     meta = {'collection': 'camera_running_fail'}
     
-    camera          = ReferenceField("Camera")
-    compute_node    = ReferenceField("ComputeNode")
+    camera          = ReferenceField("Camera", dbref=True)
+    compute_node    = ReferenceField("ComputeNode", dbref=True)
     report_time     = DateTimeField(required=True, default=datetime.datetime.now)
     process_time    = DateTimeField(required=True, default=datetime.datetime.now)
     message         = StringField()

@@ -12,14 +12,14 @@ class CameraModel(Document):
     meta = {'collection': 'camera_models'}
     
     name        = StringField(max_length=100, required=True)
-    manufactory = ReferenceField(Manufactory, required=True)
+    manufactory = ReferenceField(Manufactory, required=True, dbref=True)
     create_date = DateTimeField(required=True, default=datetime.datetime.now)    
     
 class CameraOperating(EmbeddedDocument):
     user_command = StringField(required=True, default="suspend")
     status       = StringField(required=True, default="stop")
     update_date  = DateTimeField(required=True, default=datetime.datetime.now)
-    compute_node = ReferenceField("ComputeNode")
+    compute_node = ReferenceField("ComputeNode", dbref=True)
     
     define_operating_status = ["start", "starting", "running", "stopping", "stop"]
     define_user_commands    = ["stop", "run", "suspend"]
@@ -40,10 +40,10 @@ class Camera(Document):
     fps         = IntField(required=True)
     status      = StringField(required=True, default='active')
     
-    owner       = ReferenceField(User, required=True)
+    owner       = ReferenceField(User, required=True, dbref=True)
     
-    camera_model = ReferenceField('CameraModel', required=True)
-    project     = ReferenceField('Project', required=True)
+    camera_model = ReferenceField('CameraModel', required=True, dbref=True)
+    project     = ReferenceField('Project', required=True, dbref=True)
     
     storage_periods = IntField(required=True, default="0") # in day
     

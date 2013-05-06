@@ -31,7 +31,7 @@ class Project(Document):
     
     ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
     
-    owner       = ReferenceField("User", required=True)
+    owner       = ReferenceField("User", required=True, dbref=True)
     collaborators = ListField(EmbeddedDocumentField(Collaborator))
     
     def get_camera_number(self):

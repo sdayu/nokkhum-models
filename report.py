@@ -12,12 +12,12 @@ class CameraProcessStatus(EmbeddedDocument):
     threads = IntField(default=0)
     messages = ListField()
     
-    camera  = ReferenceField("Camera")
+    camera  = ReferenceField("Camera", dbref=True)
 
 class ComputeNodeReport(Document):
     meta = {'collection': 'compute_node_report'}
     
-    compute_node    = ReferenceField("ComputeNode")
+    compute_node    = ReferenceField("ComputeNode", dbref=True)
     
     report_date     = DateTimeField(required=True, default=datetime.datetime.now)
     
