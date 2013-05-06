@@ -27,7 +27,6 @@ class CameraOperating(EmbeddedDocument):
 class Camera(Document):
     meta = {'collection': 'cameras'}
     
-    id          = SequenceField(required=True, unique=True, primary_key=True)
     username    = StringField(max_length=100, required=True)
     password    = StringField()
     name        = StringField(required=True)

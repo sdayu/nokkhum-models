@@ -21,7 +21,7 @@ class Collaborator(EmbeddedDocument):
 
 class Project(Document):
     meta = {'collection': 'projects'}
-    id          = SequenceField(required=True, unique=True, primary_key=True)
+
     name        = StringField(required=True)
     description = StringField(required=True)
     status      = StringField(required=True, default='active')

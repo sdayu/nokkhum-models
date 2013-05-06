@@ -22,7 +22,7 @@ class CameraCommandQueue(Document):
 class CommandLog(Document):
     meta = {'collection': 'command_log'}
     
-    id      = SequenceField(required=True, unique=True, primary_key=True)
+    command_id      = LongField(required=True, default=0)
     camera  = ReferenceField("Camera", dbref=True)
     action  = StringField(required=True, default='waiting')
     owner   = ReferenceField("User", dbref=True)

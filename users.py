@@ -4,7 +4,6 @@ import datetime
 class User(Document):
     meta = {'collection' : 'users'}
     
-    id          = SequenceField(required=True, unique=True, primary_key=True)
     password    = StringField(required=True)
     email       = EmailField(required=True, unique=True)
     first_name  = StringField(max_length=100, required=True)
@@ -26,7 +25,6 @@ class User(Document):
 class Role(Document):
     meta = {'collection' : 'roles'}
     
-    id          = SequenceField(required=True, unique=True, primary_key=True)
     name        = StringField(max_length=100, required=True)
     
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
