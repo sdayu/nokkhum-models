@@ -9,11 +9,11 @@ from mongoengine import *
 from .cameras import Camera
 
 class CollboratorPermission(EmbeddedDocument):
-    camera      = ReferenceField(Camera, required=True)
+    camera      = ReferenceField(Camera, required=True, dbref=True)
     permissions = ListField(StringField(default='view'))
 
 class Collaborator(EmbeddedDocument):
-    user        = ReferenceField("User", required=True)
+    user        = ReferenceField("User", required=True, dbref=True)
     camera_permissions = ListField(EmbeddedDocumentField(CollboratorPermission))
     
     permissions = ListField(StringField(default='view'))
