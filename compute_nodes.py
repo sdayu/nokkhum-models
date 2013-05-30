@@ -3,8 +3,8 @@ import datetime
 
 class CPUInfomation(EmbeddedDocument):
     count   = IntField(required=True, default=0)
-    usage   = FloatField(default=0) # show in percent
-    usage_per_cpu  = ListField(FloatField())
+    used    = FloatField(default=0) # show in percent
+    used_per_cpu  = ListField(FloatField())
     
 class MemoryInfomation(EmbeddedDocument):
     total   = IntField(required=True, default=0)
