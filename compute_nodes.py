@@ -11,6 +11,12 @@ class MemoryInfomation(EmbeddedDocument):
     used    = IntField(default=0)
     free    = IntField(default=0)
 
+class DiskInfomation(EmbeddedDocument):
+    total   = IntField(required=True, default=0)
+    used    = IntField(default=0)
+    free    = IntField(default=0)
+    percent = FloatField(default=0) # show in percent
+
 class VMInstance(EmbeddedDocument):
     name            = StringField(max_length=100, required=True)
     
@@ -40,6 +46,7 @@ class ComputeNode(Document):
     machine = StringField(max_length=100)
     cpu     = EmbeddedDocumentField("CPUInfomation", required=True, default=CPUInfomation())
     memory  = EmbeddedDocumentField("MemoryInfomation", required=True, default=MemoryInfomation())
+    disk    = EmbeddedDocumentField("DiskInfomation", required=True, default=DiskInfomation())
     
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
