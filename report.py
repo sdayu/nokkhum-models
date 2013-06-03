@@ -21,8 +21,9 @@ class ComputeNodeReport(Document):
     
     report_date     = DateTimeField(required=True, default=datetime.datetime.now)
     
-    cpu             = EmbeddedDocumentField("CPUInfomation", required=True)
-    memory          = EmbeddedDocumentField("MemoryInfomation", required=True)
-      
+    cpu             = EmbeddedDocumentField("CPUInformation", required=True)
+    memory          = EmbeddedDocumentField("MemoryInformation", required=True)
+    disk    = EmbeddedDocumentField("DiskInformation", required=True, default=DiskInfomation())
+    
     camera_process_status = ListField(EmbeddedDocumentField(CameraProcessStatus))
     

@@ -1,17 +1,17 @@
 from mongoengine import *
 import datetime
 
-class CPUInfomation(EmbeddedDocument):
+class CPUInformation(EmbeddedDocument):
     count   = IntField(required=True, default=0)
     used    = FloatField(default=0) # show in percent
     used_per_cpu  = ListField(FloatField())
     
-class MemoryInfomation(EmbeddedDocument):
+class MemoryInformation(EmbeddedDocument):
     total   = IntField(required=True, default=0)
     used    = IntField(default=0)
     free    = IntField(default=0)
 
-class DiskInfomation(EmbeddedDocument):
+class DiskInformation(EmbeddedDocument):
     total   = IntField(required=True, default=0)
     used    = IntField(default=0)
     free    = IntField(default=0)
@@ -44,9 +44,9 @@ class ComputeNode(Document):
     system  = StringField(max_length=100)
     host    = StringField(max_length=100, required=True)
     machine = StringField(max_length=100)
-    cpu     = EmbeddedDocumentField("CPUInfomation", required=True, default=CPUInfomation())
-    memory  = EmbeddedDocumentField("MemoryInfomation", required=True, default=MemoryInfomation())
-    disk    = EmbeddedDocumentField("DiskInfomation", required=True, default=DiskInfomation())
+    cpu     = EmbeddedDocumentField("CPUInformation", required=True, default=CPUInfomation())
+    memory  = EmbeddedDocumentField("MemoryInrfomation", required=True, default=MemoryInfomation())
+    disk    = EmbeddedDocumentField("DiskInformation", required=True, default=DiskInfomation())
     
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
