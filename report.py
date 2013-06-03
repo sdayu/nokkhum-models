@@ -23,7 +23,7 @@ class ComputeNodeReport(Document):
     
     cpu             = EmbeddedDocumentField("CPUInformation", required=True)
     memory          = EmbeddedDocumentField("MemoryInformation", required=True)
-    disk    = EmbeddedDocumentField("DiskInformation", required=True, default=DiskInfomation())
+    disk            = EmbeddedDocumentField("DiskInformation", required=True)
     
     camera_process_status = ListField(EmbeddedDocumentField(CameraProcessStatus))
     
