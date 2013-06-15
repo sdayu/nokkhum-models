@@ -2,6 +2,7 @@ from mongoengine import *
 import datetime
 
 class CPUInformation(EmbeddedDocument):
+    frequency = FloatField(default=0) # MHz unit
     count   = IntField(required=True, default=0)
     used    = FloatField(default=0) # show in percent
     used_per_cpu  = ListField(FloatField())

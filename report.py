@@ -6,13 +6,17 @@ Created on Aug 7, 2012
 from mongoengine import *
 import datetime
 
-class CameraProcessStatus(EmbeddedDocument):
-    cpu     = FloatField(default=0)
-    memory  = IntField(default=0)
-    threads = IntField(default=0)
-    messages = ListField()
+class CameraProcessStatus(Document):
+    meta = {'collection': 'camera_process_status'}
     
-    camera  = ReferenceField("Camera", dbref=True)
+    report_date     = DateTimeField(required=True, default=datetime.datetime.now)
+    cpu             = FloatField(default=0)
+    memory          = IntField(default=0)
+    threads         = IntField(default=0)
+    messages        = ListField()
+    
+    camera          = ReferenceField("Camera", dbref=True, required=True)
+    compute_node_report = ReferenceField("ComputeNodeReport", dbref=True, required=True)
 
 class ComputeNodeReport(Document):
     meta = {'collection': 'compute_node_report'}
@@ -25,5 +29,5 @@ class ComputeNodeReport(Document):
     memory          = EmbeddedDocumentField("MemoryInformation", required=True)
     disk            = EmbeddedDocumentField("DiskInformation", required=True)
     
-    camera_process_status = ListField(EmbeddedDocumentField(CameraProcessStatus))
+    camera_process_status = ListField(ReferenceField(CameraProcessStatus, dbref=True))
     
