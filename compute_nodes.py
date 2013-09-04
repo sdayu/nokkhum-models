@@ -36,6 +36,8 @@ class VMInstance(EmbeddedDocument):
     terminate_instance_date = DateTimeField()
     
     status          = StringField(required=True, default='pending')
+    
+    extra           = DictField()
 
 
 class ComputeNode(Document):
