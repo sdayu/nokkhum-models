@@ -56,6 +56,8 @@ class ComputeNode(Document):
 
     vm      = EmbeddedDocumentField(VMInstance)
     
+    extra           = DictField()
+    
     def is_vm(self):
         if self.vm is None:
             return False

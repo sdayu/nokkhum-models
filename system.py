@@ -19,6 +19,8 @@ class CameraCommandQueue(Document):
     owner   = ReferenceField("User", dbref=True)
     message = StringField()
     
+    extra   = DictField()
+    
 class CommandLog(Document):
     meta = {'collection': 'command_log'}
     
@@ -33,6 +35,8 @@ class CommandLog(Document):
     complete_date   = DateTimeField(required=True, default=datetime.datetime.now)
     status          = StringField(required=True)
     message         = StringField()
+    
+    extra           = DictField()
     
 class CameraRunningFail(Document):
     meta = {'collection': 'camera_running_fail'}
