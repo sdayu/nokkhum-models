@@ -29,7 +29,7 @@ class CommandLog(Document):
     action  = StringField(required=True, default='waiting')
     owner   = ReferenceField("User", dbref=True)
     attributes      = DictField()
-    compute_node    = DictField()
+    compute_node    = EmbeddedDocumentField("ComputeNode")
     command_date    = DateTimeField(required=True, default=datetime.datetime.now)
     process_date    = DateTimeField(required=True, default=datetime.datetime.now)
     complete_date   = DateTimeField(required=True, default=datetime.datetime.now)
