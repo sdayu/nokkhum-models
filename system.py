@@ -32,7 +32,7 @@ class CommandLog(Document):
     compute_node    = EmbeddedDocumentField("ComputeNode")
     command_date    = DateTimeField(required=True, default=datetime.datetime.now)
     process_date    = DateTimeField(required=True, default=datetime.datetime.now)
-    complete_date   = DateTimeField(required=True, default=datetime.datetime.now)
+    complete_date   = DateTimeField()
     status          = StringField(required=True)
     message         = StringField()
     
