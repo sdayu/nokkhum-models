@@ -25,11 +25,12 @@ class Processor(Document):
     
     processors  = ListField(DictField())
     operating   = EmbeddedDocumentField("ProcessorOperating", required=True)
+    status      = StringField(required=True, default='active')
     
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
     
-    owner       = ReferenceField(User, required=True, dbref=True)
+    owner       = ReferenceField("User", required=True, dbref=True)
 
 class ProcessorCommand(EmbeddedDocument):
     processor  = ReferenceField("Processor", dbref=True)
@@ -64,7 +65,7 @@ class CommandLog(Document):
 class ProcessorRunningFail(Document):
     meta = {'collection': 'processor_running_fail'}
     
-    camera          = ReferenceField("Camera", dbref=True)
+    processor       = ReferenceField("Processor", dbref=True)
     compute_node    = ReferenceField("ComputeNode", dbref=True)
     report_time     = DateTimeField(required=True, default=datetime.datetime.now)
     process_time    = DateTimeField(required=True, default=datetime.datetime.now)

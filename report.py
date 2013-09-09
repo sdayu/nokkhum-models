@@ -29,5 +29,5 @@ class ComputeNodeReport(Document):
     memory          = EmbeddedDocumentField("MemoryInformation", required=True)
     disk            = EmbeddedDocumentField("DiskInformation", required=True)
     
-    camera_process_status = ListField(ReferenceField(CameraProcessStatus, dbref=True))
+    processor_status = ListField(ReferenceField(ProcessorStatus, dbref=True))
     
