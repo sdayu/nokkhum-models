@@ -15,15 +15,6 @@ class CameraModel(Document):
     manufactory = ReferenceField(Manufactory, required=True, dbref=True)
     create_date = DateTimeField(required=True, default=datetime.datetime.now)    
     
-class CameraOperating(EmbeddedDocument):
-    user_command = StringField(required=True, default="suspend")
-    status       = StringField(required=True, default="stop")
-    update_date  = DateTimeField(required=True, default=datetime.datetime.now)
-    compute_node = ReferenceField("ComputeNode", dbref=True)
-    
-    define_operating_status = ["start", "starting", "running", "stopping", "stop"]
-    define_user_commands    = ["stop", "run", "suspend"]
-    
 class Camera(Document):
     meta = {'collection': 'cameras'}
     
@@ -44,14 +35,7 @@ class Camera(Document):
     camera_model = ReferenceField('CameraModel', required=True, dbref=True)
     project     = ReferenceField('Project', required=True, dbref=True)
     
-    storage_periods = IntField(required=True, default="0") # in day
-    
-    processors  = ListField(DictField())
-    operating   = EmbeddedDocumentField("CameraOperating", required=True)
-    
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
     
     ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
-    
-
