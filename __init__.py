@@ -1,10 +1,10 @@
 from .users import User, Role, Token
 from .projects import Project, Collaborator, CollboratorPermission
-from .cameras import CameraOperating, Camera, CameraModel, Manufactory
+from .cameras import Camera, CameraModel, Manufactory
 from .image_processors import ImageProcessor
 from .compute_nodes import CPUInformation, MemoryInformation, DiskInformation , ComputeNode, VMInstance
-from .system import CameraCommandQueue, CommandLog, CameraRunningFail
-from .report import ComputeNodeReport, CameraProcessStatus
+from .processor import Processor, ProcessorCommandQueue, CommandLog, ProcessorRunningFail, ProcessorOperating
+from .report import ComputeNodeReport, ProcessorStatus
 
 from mongoengine import connect
 

@@ -6,8 +6,8 @@ Created on Aug 7, 2012
 from mongoengine import *
 import datetime
 
-class CameraProcessStatus(Document):
-    meta = {'collection': 'camera_process_status'}
+class ProcessorStatus(Document):
+    meta = {'collection': 'processor_status'}
     
     report_date     = DateTimeField(required=True, default=datetime.datetime.now)
     cpu             = FloatField(default=0)
