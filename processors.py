@@ -31,6 +31,7 @@ class Processor(Document):
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
     
+    project     = ReferenceField('Project', required=True, dbref=True)
     owner       = ReferenceField("User", required=True, dbref=True)
 
 class ProcessorCommand(EmbeddedDocument):
