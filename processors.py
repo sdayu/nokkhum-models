@@ -22,7 +22,7 @@ class Processor(Document):
     name = StringField('Name')
     cameras = ListField(ReferenceField('Camera', dbref=True))
     
-    storage_periods = IntField(required=True, default="0") # in day
+    storage_period = IntField(required=True, default="0") # in day
     
     image_processors  = ListField(DictField())
     operating   = EmbeddedDocumentField("ProcessorOperating", required=True)
