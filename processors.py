@@ -19,11 +19,12 @@ class ProcessorOperating(EmbeddedDocument):
 class Processor(Document):
     meta = {'collection': 'processors'}
     
+    name = StringField('Name')
     cameras = ListField(ReferenceField('Camera', dbref=True))
     
     storage_periods = IntField(required=True, default="0") # in day
     
-    processors  = ListField(DictField())
+    image_processors  = ListField(DictField())
     operating   = EmbeddedDocumentField("ProcessorOperating", required=True)
     status      = StringField(required=True, default='active')
     
