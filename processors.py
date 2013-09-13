@@ -25,7 +25,7 @@ class Processor(Document):
     storage_period = IntField(required=True, default="0") # in day
     
     image_processors  = ListField(DictField())
-    operating   = EmbeddedDocumentField("ProcessorOperating", required=True)
+    operating   = EmbeddedDocumentField("ProcessorOperating", required=True, default=ProcessorOperating)
     status      = StringField(required=True, default='active')
     
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
