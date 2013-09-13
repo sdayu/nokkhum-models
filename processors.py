@@ -19,7 +19,7 @@ class ProcessorOperating(EmbeddedDocument):
 class Processor(Document):
     meta = {'collection': 'processors'}
     
-    name = StringField('Name')
+    name = StringField()
     cameras = ListField(ReferenceField('Camera', dbref=True))
     
     storage_period = IntField(required=True, default="0") # in day
