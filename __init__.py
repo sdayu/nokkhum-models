@@ -3,7 +3,7 @@ from .projects import Project, Collaborator, CollboratorPermission
 from .cameras import Camera, CameraModel, Manufactory
 from .image_processors import ImageProcessor
 from .compute_nodes import CPUInformation, MemoryInformation, DiskInformation , ComputeNode, VMInstance
-from .processors import Processor, ProcessorCommandQueue, CommandLog, ProcessorRunningFail, ProcessorOperating
+from .processors import Processor, ProcessorCommandQueue, CommandLog, ProcessorRunningFail, ProcessorOperating, ProcessorCommand
 from .report import ComputeNodeReport, ProcessorStatus
 
 from mongoengine import connect
