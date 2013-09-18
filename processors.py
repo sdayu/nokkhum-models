@@ -55,7 +55,7 @@ class ProcessorCommandQueue(Document):
     meta = {'collection': 'processor_command_queue'}
     
     id                  = SequenceField(required=True, unique=True, primary_key=True)
-    procesor_command    = EmbeddedDocumentField("ProcessorCommand")
+    processor_command    = EmbeddedDocumentField("ProcessorCommand")
     
 class CommandLog(Document):
     meta = {'collection': 'command_log'}
