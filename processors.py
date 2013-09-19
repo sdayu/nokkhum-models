@@ -41,6 +41,7 @@ class ProcessorCommand(EmbeddedDocument):
     status  = StringField(required=True, default='waiting')
     compute_node    = EmbeddedDocumentField("ComputeNode")
     
+    command_type    = StringField(required=True, default="system")
     command_date    = DateTimeField(required=True, default=datetime.datetime.now)
     process_date    = DateTimeField(required=True, default=datetime.datetime.now)
     complete_date   = DateTimeField()
@@ -50,6 +51,8 @@ class ProcessorCommand(EmbeddedDocument):
     message = StringField()
     
     extra   = DictField()
+    
+    command_type_option = ["system", "user"]
 
 class ProcessorCommandQueue(Document):
     meta = {'collection': 'processor_command_queue'}
