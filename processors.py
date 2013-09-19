@@ -6,6 +6,7 @@ Created on Nov 8, 2011
 
 from mongoengine import *
 import datetime
+import bson
 
 class ProcessorOperating(EmbeddedDocument):
     user_command = StringField(required=True, default="suspend")
@@ -39,6 +40,7 @@ class Processor(Document):
     
 
 class ProcessorCommand(EmbeddedDocument):
+    id  = ObjectIdField(primary=True, required=True, default=bson.objectid.ObjectId())
     processor  = ReferenceField("Processor", dbref=True)
     attributes      = DictField()
     action  = StringField(required=True, default='no-operating')
@@ -66,8 +68,7 @@ class ProcessorCommandQueue(Document):
 class CommandLog(Document):
     meta = {'collection': 'command_log'}
     
-    command_id          = ObjectIdField(required=True)
-    procesor_command    = EmbeddedDocumentField("ProcessorCommand")
+    processor_command    = EmbeddedDocumentField("ProcessorCommand")
     
     
 class ProcessorRunningFail(Document):
