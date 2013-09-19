@@ -11,7 +11,10 @@ class ProcessorOperating(EmbeddedDocument):
     user_command = StringField(required=True, default="suspend")
     status       = StringField(required=True, default="stop")
     update_date  = DateTimeField(required=True, default=datetime.datetime.now)
+    user_command_log = ListField(ObjectIdField())
+    
     compute_node = ReferenceField("ComputeNode", dbref=True)
+    
     
     define_operating_status = ["start", "starting", "running", "stopping", "stop"]
     define_user_commands    = ["stop", "run", "suspend"]
@@ -34,7 +37,6 @@ class Processor(Document):
     project     = ReferenceField('Project', required=True, dbref=True)
     owner       = ReferenceField("User", required=True, dbref=True)
     
-    user_command_log = ListField(ObjectIdField())
 
 class ProcessorCommand(EmbeddedDocument):
     processor  = ReferenceField("Processor", dbref=True)
