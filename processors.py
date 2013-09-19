@@ -40,7 +40,7 @@ class Processor(Document):
     
 
 class ProcessorCommand(EmbeddedDocument):
-    id  = ObjectIdField(primary=True, required=True, default=bson.objectid.ObjectId())
+    id  = ObjectIdField(primary_key=True, required=True, default=bson.objectid.ObjectId())
     processor  = ReferenceField("Processor", dbref=True)
     attributes      = DictField()
     action  = StringField(required=True, default='no-operating')
