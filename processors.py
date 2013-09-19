@@ -33,6 +33,8 @@ class Processor(Document):
     
     project     = ReferenceField('Project', required=True, dbref=True)
     owner       = ReferenceField("User", required=True, dbref=True)
+    
+    user_command_log = ListField(ObjectIdField())
 
 class ProcessorCommand(EmbeddedDocument):
     processor  = ReferenceField("Processor", dbref=True)
@@ -57,13 +59,12 @@ class ProcessorCommand(EmbeddedDocument):
 class ProcessorCommandQueue(Document):
     meta = {'collection': 'processor_command_queue'}
     
-    id                  = SequenceField(required=True, unique=True, primary_key=True)
     processor_command    = EmbeddedDocumentField("ProcessorCommand")
     
 class CommandLog(Document):
     meta = {'collection': 'command_log'}
     
-    command_id          = SequenceField(required=True, unique=True, primary_key=True)
+    command_id          = ObjectIdField(required=True)
     procesor_command    = EmbeddedDocumentField("ProcessorCommand")
     
     
