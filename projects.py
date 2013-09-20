@@ -7,6 +7,7 @@ import datetime
 from mongoengine import *
 
 from .cameras import Camera
+from .processors import Processor
 
 class CollboratorPermission(EmbeddedDocument):
     camera      = ReferenceField(Camera, required=True, dbref=True)
@@ -36,3 +37,6 @@ class Project(Document):
     
     def get_camera_number(self):
         return Camera.objects(project = self).count()
+    
+    def get_processor_number(self):
+        return Processor.objects(project = self).count()
