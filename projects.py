@@ -8,11 +8,11 @@ from mongoengine import *
 
 
 class CollboratorPermission(EmbeddedDocument):
-    camera      = ReferenceField(Camera, required=True, dbref=True)
+    camera      = ReferenceField('Camera', required=True, dbref=True)
     permissions = ListField(StringField(default='view'))
 
 class Collaborator(EmbeddedDocument):
-    user        = ReferenceField("User", required=True, dbref=True)
+    user        = ReferenceField('User', required=True, dbref=True)
     camera_permissions = ListField(EmbeddedDocumentField(CollboratorPermission))
     
     permissions = ListField(StringField(default='view'))
@@ -30,7 +30,7 @@ class Project(Document):
     
     ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
     
-    owner       = ReferenceField("User", required=True, dbref=True)
+    owner       = ReferenceField('User', required=True, dbref=True)
     collaborators = ListField(EmbeddedDocumentField(Collaborator))
     
     def get_camera_number(self):
