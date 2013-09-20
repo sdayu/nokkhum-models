@@ -6,8 +6,6 @@ Created on Jun 21, 2012
 import datetime
 from mongoengine import *
 
-from .cameras import Camera
-from .processors import Processor
 
 class CollboratorPermission(EmbeddedDocument):
     camera      = ReferenceField(Camera, required=True, dbref=True)
@@ -36,7 +34,9 @@ class Project(Document):
     collaborators = ListField(EmbeddedDocumentField(Collaborator))
     
     def get_camera_number(self):
+        from .cameras import Camera
         return Camera.objects(project = self).count()
     
     def get_processor_number(self):
+        from .processors import Processor
         return Processor.objects(project = self).count()
