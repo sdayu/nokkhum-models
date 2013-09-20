@@ -39,12 +39,13 @@ class Processor(Document):
     owner       = ReferenceField("User", required=True, dbref=True)
     
 
-class ProcessorCommand(EmbeddedDocument):
-    id  = ObjectIdField(primary_key=True, required=True, default=bson.objectid.ObjectId())
-    processor  = ReferenceField("Processor", dbref=True)
+class ProcessorCommand(Document):
+    meta = {'collection': 'processor_commands'}
+    
+    processor       = ReferenceField("Processor", dbref=True)
     attributes      = DictField()
-    action  = StringField(required=True, default='no-operating')
-    status  = StringField(required=True, default='waiting')
+    action          = StringField(required=True, default='no-operating')
+    status          = StringField(required=True, default='waiting')
     compute_node    = EmbeddedDocumentField("ComputeNode")
     
     command_type    = StringField(required=True, default="system")
@@ -53,22 +54,17 @@ class ProcessorCommand(EmbeddedDocument):
     complete_date   = DateTimeField()
     
     update_date     = DateTimeField(required=True, default=datetime.datetime.now)
-    owner   = ReferenceField("User", dbref=True)
-    message = StringField()
+    owner           = ReferenceField("User", dbref=True)
+    message         = StringField()
     
-    extra   = DictField()
+    extra           = DictField()
     
     command_type_option = ["system", "user"]
 
 class ProcessorCommandQueue(Document):
     meta = {'collection': 'processor_command_queue'}
     
-    processor_command    = EmbeddedDocumentField("ProcessorCommand")
-    
-class CommandLog(Document):
-    meta = {'collection': 'command_log'}
-    
-    processor_command    = EmbeddedDocumentField("ProcessorCommand")
+    processor_command    = ReferenceField("ProcessorCommand", dbref=True)
     
     
 class ProcessorRunningFail(Document):
