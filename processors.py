@@ -55,7 +55,7 @@ class ProcessorCommand(Document):
     
     update_date     = DateTimeField(required=True, default=datetime.datetime.now)
     owner           = ReferenceField("User", dbref=True)
-    message         = StringField()
+    message         = StringField(required=True, default='')
     
     extra           = DictField()
     
