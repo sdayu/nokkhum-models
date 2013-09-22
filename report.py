@@ -15,19 +15,19 @@ class ProcessorStatus(Document):
     threads         = IntField(default=0)
     messages        = ListField()
     
-    camera          = ReferenceField("Camera", dbref=True, required=True)
-    compute_node_report = ReferenceField("ComputeNodeReport", dbref=True, required=True)
+    processor          = ReferenceField('Processor', dbref=True, required=True)
+    compute_node_report = ReferenceField('ComputeNodeReport', dbref=True, required=True)
 
 class ComputeNodeReport(Document):
     meta = {'collection': 'compute_node_report'}
     
-    compute_node    = ReferenceField("ComputeNode", dbref=True)
+    compute_node    = ReferenceField('ComputeNode', dbref=True)
     
     report_date     = DateTimeField(required=True, default=datetime.datetime.now)
     
-    cpu             = EmbeddedDocumentField("CPUInformation", required=True)
-    memory          = EmbeddedDocumentField("MemoryInformation", required=True)
-    disk            = EmbeddedDocumentField("DiskInformation", required=True)
+    cpu             = EmbeddedDocumentField('CPUInformation', required=True)
+    memory          = EmbeddedDocumentField('MemoryInformation', required=True)
+    disk            = EmbeddedDocumentField('DiskInformation', required=True)
     
     processor_status = ListField(ReferenceField(ProcessorStatus, dbref=True))
     
