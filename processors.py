@@ -67,8 +67,8 @@ class ProcessorCommandQueue(Document):
     processor_command    = ReferenceField("ProcessorCommand", dbref=True)
     
     
-class ProcessorRunningFail(Document):
-    meta = {'collection': 'processor_running_fail'}
+class ProcessorRunFail(Document):
+    meta = {'collection': 'processor_run_fail'}
     
     processor       = ReferenceField("Processor", dbref=True)
     compute_node    = ReferenceField("ComputeNode", dbref=True)
