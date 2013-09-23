@@ -74,5 +74,5 @@ class ProcessorRunFail(Document):
     compute_node    = ReferenceField("ComputeNode", dbref=True)
     report_time     = DateTimeField(required=True, default=datetime.datetime.now)
     process_time    = DateTimeField(required=True, default=datetime.datetime.now)
-    message         = StringField()
+    message         = StringField(required=True, default='')
 
