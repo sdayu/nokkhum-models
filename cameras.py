@@ -29,6 +29,7 @@ class Camera(Document):
     image_size  = StringField(required=True)
     fps         = IntField(required=True)
     status      = StringField(required=True, default='active')
+    location    = GeoPointField()
     
     owner       = ReferenceField(User, required=True, dbref=True)
     
