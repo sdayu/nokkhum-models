@@ -7,7 +7,7 @@ import datetime
 from mongoengine import *
 
 class CollboratorPermission(EmbeddedDocument):
-    camera      = ReferenceField('Camera', required=True, dbref=True)
+    processor      = ReferenceField('Processor', required=True, dbref=True)
     permissions = ListField(StringField(default='view'))
 
 class Collaborator(EmbeddedDocument):
