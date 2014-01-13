@@ -10,7 +10,7 @@ class Notification(Document):
     meta = {'collection': 'notifications'}
 
     method      = StringField(required=True)
-    camera_id   = ReferenceField('Camera', dbref=True)
+    camera   = ReferenceField('Camera', dbref=True)
     description = StringField(required=True)
     filename    = StringField(required=True)
     face_name   = StringField(required=True)
