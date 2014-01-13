@@ -6,6 +6,7 @@ from .image_processors import ImageProcessor
 from .compute_nodes import CPUInformation, MemoryInformation, DiskInformation , ComputeNode, VMInstance
 from .processors import Processor, ProcessorCommandQueue, ProcessorRunFail, ProcessorOperating, ProcessorCommand
 from .report import ComputeNodeReport, ProcessorStatus
+from .notification import Notification
 
 from mongoengine import connect
 
