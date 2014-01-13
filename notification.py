@@ -4,7 +4,6 @@ Created on Jun 13, 2014
 '''
 import datetime
 from mongoengine import *
-from sqlalchemy.sql.expression import default
 
 class Notification(Document):
     meta = {'collection': 'notifications'}
