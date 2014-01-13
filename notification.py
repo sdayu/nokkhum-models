@@ -9,15 +9,15 @@ class Notification(Document):
     meta = {'collection': 'notifications'}
 
     method      = StringField(required=True)
-    camera   = ReferenceField('Camera', dbref=True)
+    camera      = StringField(required=True)
     description = StringField(required=True)
     filename    = StringField(required=True)
     face_name   = StringField(required=True)
     
-    url         = StringField(required=True)
+    url         = StringField(required=True, default='')
     
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
     update_date = DateTimeField(required=True, default=datetime.datetime.now)
     
-    type        = StringField(required=True)
+    typenoti        = StringField(required=True, default='faceregnoti')
     status      = StringField(required=True, default='False')
