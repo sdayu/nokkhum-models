@@ -17,7 +17,6 @@ class Forum(Document):
     owner       = ReferenceField('User', required=True, dbref=True)
     group       = ReferenceField('Group', required=True, dbref=True)
     
-    name        = StringField(required=True)
     description = StringField(required=True)
     
     create_date = DateTimeField(required=True, default=datetime.datetime.now)
