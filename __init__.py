@@ -7,6 +7,7 @@ from .compute_nodes import CPUInformation, MemoryInformation, DiskInformation , 
 from .processors import Processor, ProcessorCommandQueue, ProcessorRunFail, ProcessorOperating, ProcessorCommand
 from .report import ComputeNodeReport, ProcessorStatus
 from .notification import Notification
+from .forums import Forum, Reply
 
 from mongoengine import connect
 
