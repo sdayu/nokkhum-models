@@ -8,6 +8,7 @@ from .processors import Processor, ProcessorCommandQueue, ProcessorRunFail, Proc
 from .report import ComputeNodeReport, ProcessorStatus
 from .notification import Notification
 from .forums import Forum, Reply
+from .facetrainings import Facetraining
 
 from mongoengine import connect
 
