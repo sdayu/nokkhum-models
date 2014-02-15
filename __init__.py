@@ -9,7 +9,7 @@ from .report import ComputeNodeReport, ProcessorStatus
 from .notification import Notification
 from .forums import Forum, Reply
 from .facetrainings import Facetraining
-
+from .billing import ServicePlan
 from mongoengine import connect
 
 def initial(setting):
