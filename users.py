@@ -4,6 +4,8 @@ import datetime
 class User(Document):
     meta = {'collection' : 'users'}
     
+    face_id     = StringField(required=True)
+    
     password    = StringField(required=True)
     email       = EmailField(required=True, unique=True)
     first_name  = StringField(max_length=100, required=True)

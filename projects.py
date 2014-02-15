@@ -6,9 +6,8 @@ Created on Jun 21, 2012
 import datetime
 from mongoengine import *
 
-
 class CollboratorPermission(EmbeddedDocument):
-    camera      = ReferenceField('Camera', required=True, dbref=True)
+    processor      = ReferenceField('Processor', required=True, dbref=True)
     permissions = ListField(StringField(default='view'))
 
 class Collaborator(EmbeddedDocument):
@@ -32,6 +31,7 @@ class Project(Document):
     
     owner       = ReferenceField('User', required=True, dbref=True)
     collaborators = ListField(EmbeddedDocumentField(Collaborator))
+    gcollaborators = ListField(ReferenceField('Group', dbref=True))
     
     def get_camera_number(self):
         from .cameras import Camera
