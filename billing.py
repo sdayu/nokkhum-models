@@ -20,3 +20,4 @@ class ServicePlan(Document):
     profit = FloatField()
     status = StringField(required=True, default='active')
     sell_price_per_minute = FloatField()
+    scaling_factor = FloatField()
