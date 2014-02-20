@@ -21,3 +21,4 @@ class ServicePlan(Document):
     status = StringField(required=True, default='active')
     sell_price_per_minute = FloatField()
     scaling_factor = FloatField(required=True, default=0.5)
+    default = BooleanField(required=True, default=False)
