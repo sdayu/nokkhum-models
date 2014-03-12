@@ -11,7 +11,7 @@ import bson
 class ProcessorOperating(EmbeddedDocument):
     user_command = StringField(required=True, default="suspend")
     status       = StringField(required=True, default="stop")
-    update_date  = DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date  = DateTimeField(required=True, default=datetime.datetime.now)
     user_command_log = ListField(ObjectIdField())
     
     compute_node = ReferenceField("ComputeNode", dbref=True)
@@ -32,8 +32,8 @@ class Processor(Document):
     operating   = EmbeddedDocumentField("ProcessorOperating", required=True, default=ProcessorOperating)
     status      = StringField(required=True, default='active')
     
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)
-    update_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
     
     project     = ReferenceField('Project', required=True, dbref=True)
     owner       = ReferenceField("User", required=True, dbref=True)
@@ -49,11 +49,11 @@ class ProcessorCommand(Document):
     compute_node    = EmbeddedDocumentField("ComputeNode")
     
     command_type    = StringField(required=True, default="system")
-    command_date    = DateTimeField(required=True, default=datetime.datetime.now)
-    process_date    = DateTimeField(required=True, default=datetime.datetime.now)
-    complete_date   = DateTimeField()
+    commanded_date    = DateTimeField(required=True, default=datetime.datetime.now)
+    processed_date    = DateTimeField(required=True, default=datetime.datetime.now)
+    completed_date   = DateTimeField()
     
-    update_date     = DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date     = DateTimeField(required=True, default=datetime.datetime.now)
     owner           = ReferenceField("User", dbref=True)
     message         = StringField(required=True, default='')
     
@@ -72,7 +72,7 @@ class ProcessorRunFail(Document):
     
     processor       = ReferenceField("Processor", dbref=True)
     compute_node    = ReferenceField("ComputeNode", dbref=True)
-    report_time     = DateTimeField(required=True, default=datetime.datetime.now)
-    process_time    = DateTimeField(required=True, default=datetime.datetime.now)
+    reported_date   = DateTimeField(required=True, default=datetime.datetime.now)
+    processed_date  = DateTimeField(required=True, default=datetime.datetime.now)
     message         = StringField(required=True, default='')
 

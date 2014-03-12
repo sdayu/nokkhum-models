@@ -15,7 +15,7 @@ class Collaborator(EmbeddedDocument):
     camera_permissions = ListField(EmbeddedDocumentField(CollboratorPermission))
     
     permissions = ListField(StringField(default='view'))
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = DateTimeField(required=True, default=datetime.datetime.now)
 
 class Project(Document):
     meta = {'collection': 'projects'}
@@ -24,8 +24,8 @@ class Project(Document):
     description = StringField(required=True)
     status      = StringField(required=True, default='active')
     
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)
-    update_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
     
     ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
     

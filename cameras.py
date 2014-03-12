@@ -36,7 +36,7 @@ class Camera(Document):
     camera_model = ReferenceField('CameraModel', required=True, dbref=True)
     project     = ReferenceField('Project', required=True, dbref=True)
     
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)
-    update_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
     
     ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')

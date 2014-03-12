@@ -51,8 +51,8 @@ class ComputeNode(Document):
     memory  = EmbeddedDocumentField("MemoryInformation", required=True, default=MemoryInformation())
     disk    = EmbeddedDocumentField("DiskInformation", required=True, default=DiskInformation())
     
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)
-    update_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
 
     vm      = EmbeddedDocumentField(VMInstance)
     
@@ -68,7 +68,7 @@ class ComputeNode(Document):
         delta = datetime.timedelta(minutes=1)
         now = datetime.datetime.now()
                 
-        if self.update_date > now-delta:
+        if self.updated_date > now-delta:
             return True
         
         return False

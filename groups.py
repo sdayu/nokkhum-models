@@ -15,7 +15,7 @@ class GroupCollaborator(EmbeddedDocument):
     camera_permissions = ListField(EmbeddedDocumentField(GroupCollboratorPermission))
     
     permissions = ListField(StringField(default='user'))
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = DateTimeField(required=True, default=datetime.datetime.now)
 
 class Group(Document):
     meta = {'collection': 'groups'}
@@ -24,8 +24,8 @@ class Group(Document):
     description = StringField(required=True)
     status      = StringField(required=True, default='active')
     
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)
-    update_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
     
     ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
     collaborators = ListField(EmbeddedDocumentField(GroupCollaborator))

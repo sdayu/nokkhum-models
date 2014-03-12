@@ -9,7 +9,7 @@ import datetime
 class ProcessorStatus(Document):
     meta = {'collection': 'processor_status'}
     
-    report_date     = DateTimeField(required=True, default=datetime.datetime.now)
+    reported_date     = DateTimeField(required=True, default=datetime.datetime.now)
     cpu             = FloatField(default=0)
     memory          = IntField(default=0)
     threads         = IntField(default=0)
@@ -23,7 +23,7 @@ class ComputeNodeReport(Document):
     
     compute_node    = ReferenceField('ComputeNode', dbref=True)
     
-    report_date     = DateTimeField(required=True, default=datetime.datetime.now)
+    reported_date     = DateTimeField(required=True, default=datetime.datetime.now)
     
     cpu             = EmbeddedDocumentField('CPUInformation', required=True)
     memory          = EmbeddedDocumentField('MemoryInformation', required=True)
