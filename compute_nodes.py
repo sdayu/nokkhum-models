@@ -32,8 +32,8 @@ class VMInstance(EmbeddedDocument):
     ip_address      = StringField()
     private_ip_address = StringField()
     
-    start_instance_date     = DateTimeField(required=True, default=datetime.datetime.now)
-    terminate_instance_date = DateTimeField()
+    started_instance_date = DateTimeField(required=True, default=datetime.datetime.now)
+    terminated_instance_date = DateTimeField()
     
     status          = StringField(required=True, default='pending')
     
