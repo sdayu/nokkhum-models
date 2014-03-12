@@ -16,8 +16,8 @@ class Notification(Document):
     
     url         = StringField(required=True, default='')
     
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)
-    update_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
     
-    typenoti        = StringField(required=True, default='faceregnoti')
+    typenoti    = StringField(required=True, default='faceregnoti')
     status      = StringField(required=True, default='False')

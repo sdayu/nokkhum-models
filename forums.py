@@ -9,7 +9,7 @@ from mongoengine import *
 class Reply(EmbeddedDocument):
     user        = ReferenceField('User', required=True, dbref=True)
     description = StringField(required=True)
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = DateTimeField(required=True, default=datetime.datetime.now)
 
 class Forum(Document):
     meta = {'collection': 'forums'}
@@ -19,8 +19,8 @@ class Forum(Document):
     
     description = StringField(required=True)
     
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)
-    update_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
 
     replys = ListField(EmbeddedDocumentField(Reply))
     
