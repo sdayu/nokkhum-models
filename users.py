@@ -38,7 +38,7 @@ class Token(me.Document):
     meta = {'collection' : 'tokens'}
     
     user = me.ReferenceField('User', dbref=True)
-    access_date = me.DateTimeField(required=True)
+    accessed_date = me.DateTimeField(required=True)
     expired_date = me.DateTimeField(required=True)
     ip_address = me.StringField(max_length=100, required=True, default='0.0.0.0')
     
