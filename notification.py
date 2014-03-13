@@ -3,21 +3,21 @@ Created on Jun 13, 2014
 @author: yoschanin.s
 '''
 import datetime
-from mongoengine import *
+import mongoengine as me
 
-class Notification(Document):
+class Notification(me.Document):
     meta = {'collection': 'notifications'}
 
-    method      = StringField(required=True)
-    camera      = StringField(required=True)
-    description = StringField(required=True)
-    filename    = StringField(required=True)
-    face_name   = StringField(required=True)
+    method      = me.StringField(required=True)
+    camera      = me.StringField(required=True)
+    description = me.StringField(required=True)
+    filename    = me.StringField(required=True)
+    face_name   = me.StringField(required=True)
     
-    url         = StringField(required=True, default='')
+    url         = me.StringField(required=True, default='')
     
-    created_date = DateTimeField(required=True, default=datetime.datetime.now)
-    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     
-    typenoti    = StringField(required=True, default='faceregnoti')
-    status      = StringField(required=True, default='False')
+    typenoti    = me.StringField(required=True, default='faceregnoti')
+    status      = me.StringField(required=True, default='False')
