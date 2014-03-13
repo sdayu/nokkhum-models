@@ -12,7 +12,7 @@ class CollboratorPermission(me.EmbeddedDocument):
 
 class Collaborator(me.EmbeddedDocument):
     user        = me.ReferenceField('User', required=True, dbref=True)
-    camera_permissions = me.ListField(EmbeddedDocumentField(CollboratorPermission))
+    camera_permissions = me.ListField(me.EmbeddedDocumentField(CollboratorPermission))
     
     permissions = me.ListField(me.StringField(default='view'))
     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
@@ -30,7 +30,7 @@ class Project(me.Document):
     ip_address  = me.StringField(max_length=100, required=True, default='0.0.0.0')
     
     owner       = me.ReferenceField('User', required=True, dbref=True)
-    collaborators = me.ListField(EmbeddedDocumentField(Collaborator))
+    collaborators = me.ListField(me.EmbeddedDocumentField(Collaborator))
     gcollaborators = me.ListField(me.ReferenceField('Group', dbref=True))
     
     def get_camera_number(self):
