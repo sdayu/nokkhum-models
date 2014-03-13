@@ -1,62 +1,62 @@
-from mongoengine import *
+import mongoengine as me
 import datetime
 
-class CPUInformation(EmbeddedDocument):
-    frequency = FloatField(default=0) # MHz unit
-    count   = IntField(required=True, default=0)
-    used    = FloatField(default=0) # show in percent
-    used_per_cpu  = ListField(FloatField())
+class CPUInformation(me.EmbeddedDocument):
+    frequency = me.FloatField(default=0) # MHz unit
+    count   = me.IntField(required=True, default=0)
+    used    = me.FloatField(default=0) # show in percent
+    used_per_cpu  = me.ListField(me.FloatField())
     
-class MemoryInformation(EmbeddedDocument):
-    total   = IntField(required=True, default=0)
-    used    = IntField(default=0)
-    free    = IntField(default=0)
+class MemoryInformation(me.EmbeddedDocument):
+    total   = me.IntField(required=True, default=0)
+    used    = me.IntField(default=0)
+    free    = me.IntField(default=0)
 
-class DiskInformation(EmbeddedDocument):
-    total   = IntField(required=True, default=0)
-    used    = IntField(default=0)
-    free    = IntField(default=0)
-    percent = FloatField(default=0) # show in percent
+class DiskInformation(me.EmbeddedDocument):
+    total   = me.IntField(required=True, default=0)
+    used    = me.IntField(default=0)
+    free    = me.IntField(default=0)
+    percent = me.FloatField(default=0) # show in percent
 
-class VMInstance(EmbeddedDocument):
-    name            = StringField(max_length=100, required=True)
+class VMInstance(me.EmbeddedDocument):
+    name            = me.StringField(max_length=100, required=True)
     
-    instance_id     = StringField(required=True)
-    image_id        = StringField(required=True)
+    instance_id     = me.StringField(required=True)
+    image_id        = me.StringField(required=True)
     
     # vm information
-    kernel          = StringField()
-    ramdisk         = StringField()   
-    instance_type   = StringField(required=True)
+    kernel          = me.StringField()
+    ramdisk         = me.StringField()   
+    instance_type   = me.StringField(required=True)
     
-    ip_address      = StringField()
-    private_ip_address = StringField()
+    ip_address      = me.StringField()
+    private_ip_address = me.StringField()
     
-    started_instance_date = DateTimeField(required=True, default=datetime.datetime.now)
-    terminated_instance_date = DateTimeField()
+    started_instance_date = me.DateTimeField(required=True, default=datetime.datetime.now)
+    terminated_instance_date = me.DateTimeField()
     
-    status          = StringField(required=True, default='pending')
+    status          = me.StringField(required=True, default='pending')
     
-    extra           = DictField()
+    extra           = me.DictField()
 
 
-class ComputeNode(Document):
+class ComputeNode(me.Document):
     meta = {'collection': 'compute_nodes'}
     
-    name    = StringField(max_length=100, required=True)
-    system  = StringField(max_length=100)
-    host    = StringField(max_length=100, required=True)
-    machine = StringField(max_length=100)
-    cpu     = EmbeddedDocumentField("CPUInformation", required=True, default=CPUInformation())
-    memory  = EmbeddedDocumentField("MemoryInformation", required=True, default=MemoryInformation())
-    disk    = EmbeddedDocumentField("DiskInformation", required=True, default=DiskInformation())
+    name    = me.StringField(max_length=100, required=True)
+    system  = me.StringField(max_length=100)
+    host    = me.StringField(max_length=100, required=True)
+    machine = me.StringField(max_length=100)
+    cpu     = me.EmbeddedDocumentField("CPUInformation", required=True, default=CPUInformation())
+    memory  = me.EmbeddedDocumentField("MemoryInformation", required=True, default=MemoryInformation())
+    disk    = me.EmbeddedDocumentField("DiskInformation", required=True, default=DiskInformation())
     
-    created_date = DateTimeField(required=True, default=datetime.datetime.now)
-    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
 
-    vm      = EmbeddedDocumentField(VMInstance)
+    vm      = me.EmbeddedDocumentField(VMInstance)
     
-    extra           = DictField()
+    extra           = me.DictField()
     
     def is_vm(self):
         if self.vm is None:

@@ -4,34 +4,34 @@ Created on Jun 21, 2012
 @author: boatkrap
 '''
 import datetime
-from mongoengine import *
+import mongoengine as me
 
-class CollboratorPermission(EmbeddedDocument):
-    processor      = ReferenceField('Processor', required=True, dbref=True)
-    permissions = ListField(StringField(default='view'))
+class CollboratorPermission(me.EmbeddedDocument):
+    processor      = me.ReferenceField('Processor', required=True, dbref=True)
+    permissions = me.ListField(me.StringField(default='view'))
 
-class Collaborator(EmbeddedDocument):
-    user        = ReferenceField('User', required=True, dbref=True)
-    camera_permissions = ListField(EmbeddedDocumentField(CollboratorPermission))
+class Collaborator(me.EmbeddedDocument):
+    user        = me.ReferenceField('User', required=True, dbref=True)
+    camera_permissions = me.ListField(EmbeddedDocumentField(CollboratorPermission))
     
-    permissions = ListField(StringField(default='view'))
-    created_date = DateTimeField(required=True, default=datetime.datetime.now)
+    permissions = me.ListField(me.StringField(default='view'))
+    created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
 
-class Project(Document):
+class Project(me.Document):
     meta = {'collection': 'projects'}
 
-    name        = StringField(required=True)
-    description = StringField(required=True)
-    status      = StringField(required=True, default='active')
+    name        = me.StringField(required=True)
+    description = me.StringField(required=True)
+    status      = me.StringField(required=True, default='active')
     
-    created_date = DateTimeField(required=True, default=datetime.datetime.now)
-    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     
-    ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
+    ip_address  = me.StringField(max_length=100, required=True, default='0.0.0.0')
     
-    owner       = ReferenceField('User', required=True, dbref=True)
-    collaborators = ListField(EmbeddedDocumentField(Collaborator))
-    gcollaborators = ListField(ReferenceField('Group', dbref=True))
+    owner       = me.ReferenceField('User', required=True, dbref=True)
+    collaborators = me.ListField(EmbeddedDocumentField(Collaborator))
+    gcollaborators = me.ListField(me.ReferenceField('Group', dbref=True))
     
     def get_camera_number(self):
         from .cameras import Camera

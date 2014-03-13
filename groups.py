@@ -4,29 +4,29 @@ Created on Dec 28, 2013
 @author: yoschanin.s
 '''
 import datetime
-from mongoengine import *
+import mongoengine as me
 
-class GroupCollboratorPermission(EmbeddedDocument):
-    processor   = ReferenceField('Processor', required=True, dbref=True)
-    permissions = ListField(StringField(default='view'))
+class GroupCollboratorPermission(me.EmbeddedDocument):
+    processor   = me.ReferenceField('Processor', required=True, dbref=True)
+    permissions = me.ListField(me.StringField(default='view'))
 
-class GroupCollaborator(EmbeddedDocument):
-    user        = ReferenceField('User', required=True, dbref=True)
-    camera_permissions = ListField(EmbeddedDocumentField(GroupCollboratorPermission))
+class GroupCollaborator(me.EmbeddedDocument):
+    user        = me.ReferenceField('User', required=True, dbref=True)
+    camera_permissions = me.ListField(me.EmbeddedDocumentField(GroupCollboratorPermission))
     
-    permissions = ListField(StringField(default='user'))
-    created_date = DateTimeField(required=True, default=datetime.datetime.now)
+    permissions = me.ListField(me.StringField(default='user'))
+    created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
 
-class Group(Document):
+class Group(me.Document):
     meta = {'collection': 'groups'}
 
-    name        = StringField(required=True)
-    description = StringField(required=True)
-    status      = StringField(required=True, default='active')
+    name        = me.StringField(required=True)
+    description = me.StringField(required=True)
+    status      = me.StringField(required=True, default='active')
     
-    created_date = DateTimeField(required=True, default=datetime.datetime.now)
-    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     
-    ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
-    collaborators = ListField(EmbeddedDocumentField(GroupCollaborator))
+    ip_address  = me.StringField(max_length=100, required=True, default='0.0.0.0')
+    collaborators = me.ListField(me.EmbeddedDocumentField(GroupCollaborator))
     

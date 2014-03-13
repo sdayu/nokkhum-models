@@ -1,42 +1,42 @@
-from mongoengine import *
+import mongoengine as me
 import datetime
 from .users import User
 
-class Manufactory(Document):
+class Manufactory(me.Document):
     meta = {'collection': 'camera_manufactories'}
     
-    name        = StringField(max_length=100, required=True)
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)
+    name        = me.StringField(max_length=100, required=True)
+    create_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     
-class CameraModel(Document):
+class CameraModel(me.Document):
     meta = {'collection': 'camera_models'}
     
-    name        = StringField(max_length=100, required=True)
-    manufactory = ReferenceField(Manufactory, required=True, dbref=True)
-    create_date = DateTimeField(required=True, default=datetime.datetime.now)    
+    name        = me.StringField(max_length=100, required=True)
+    manufactory = me.ReferenceField(Manufactory, required=True, dbref=True)
+    create_date = me.DateTimeField(required=True, default=datetime.datetime.now)    
     
-class Camera(Document):
+class Camera(me.Document):
     meta = {'collection': 'cameras'}
     
-    username    = StringField(max_length=100, required=True)
-    password    = StringField()
-    name        = StringField(required=True)
-    host        = StringField()
-    port        = IntField()
-    video_uri   = StringField(required=True)
-    audio_uri   = StringField()
-    image_uri   = StringField()
-    image_size  = StringField(required=True)
-    fps         = IntField(required=True)
-    status      = StringField(required=True, default='active')
-    location    = GeoPointField()
+    username    = me.StringField(max_length=100, required=True)
+    password    = me.StringField()
+    name        = me.StringField(required=True)
+    host        = me.StringField()
+    port        = me.IntField()
+    video_uri   = me.StringField(required=True)
+    audio_uri   = me.StringField()
+    image_uri   = me.StringField()
+    image_size  = me.StringField(required=True)
+    fps         = me.IntField(required=True)
+    status      = me.StringField(required=True, default='active')
+    location    = me.GeoPointField()
     
-    owner       = ReferenceField(User, required=True, dbref=True)
+    owner       = me.ReferenceField(User, required=True, dbref=True)
     
-    camera_model = ReferenceField('CameraModel', required=True, dbref=True)
-    project     = ReferenceField('Project', required=True, dbref=True)
+    camera_model = me.ReferenceField('CameraModel', required=True, dbref=True)
+    project     = me.ReferenceField('Project', required=True, dbref=True)
     
-    created_date = DateTimeField(required=True, default=datetime.datetime.now)
-    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     
-    ip_address  = StringField(max_length=100, required=True, default='0.0.0.0')
+    ip_address  = me.StringField(max_length=100, required=True, default='0.0.0.0')

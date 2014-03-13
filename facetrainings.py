@@ -3,16 +3,16 @@ Created on Jan 18, 2014
 @author: yoschanin.s
 '''
 import datetime
-from mongoengine import *
+import mongoengine as me
 
-class Facetraining(Document):
+class Facetraining(me.Document):
     meta = {'collection': 'facetraining'}
     
-    owner       = ReferenceField('User', required=True, dbref=True)
-    name        = StringField(required=True)
-    faceid      = StringField(required=True)
+    owner       = me.ReferenceField('User', required=True, dbref=True)
+    name        = me.StringField(required=True)
+    faceid      = me.StringField(required=True)
     
-    created_date = DateTimeField(required=True, default=datetime.datetime.now)
-    updated_date = DateTimeField(required=True, default=datetime.datetime.now)
+    created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
 
     

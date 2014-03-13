@@ -3,31 +3,31 @@ Created on Aug 7, 2012
 
 @author: boatkrap
 '''
-from mongoengine import *
+import mongoengine as me
 import datetime
 
-class ProcessorStatus(Document):
+class ProcessorStatus(me.Document):
     meta = {'collection': 'processor_status'}
     
-    reported_date     = DateTimeField(required=True, default=datetime.datetime.now)
-    cpu             = FloatField(default=0)
-    memory          = IntField(default=0)
-    threads         = IntField(default=0)
-    messages        = ListField()
+    reported_date     = me.DateTimeField(required=True, default=datetime.datetime.now)
+    cpu             = me.FloatField(default=0)
+    memory          = me.IntField(default=0)
+    threads         = me.IntField(default=0)
+    messages        = me.ListField()
     
-    processor          = ReferenceField('Processor', dbref=True, required=True)
-    compute_node_report = ReferenceField('ComputeNodeReport', dbref=True, required=True)
+    processor          = me.ReferenceField('Processor', dbref=True, required=True)
+    compute_node_report = me.ReferenceField('ComputeNodeReport', dbref=True, required=True)
 
-class ComputeNodeReport(Document):
+class ComputeNodeReport(me.Document):
     meta = {'collection': 'compute_node_report'}
     
-    compute_node    = ReferenceField('ComputeNode', dbref=True)
+    compute_node    = me.ReferenceField('ComputeNode', dbref=True)
     
-    reported_date     = DateTimeField(required=True, default=datetime.datetime.now)
+    reported_date     = me.DateTimeField(required=True, default=datetime.datetime.now)
     
-    cpu             = EmbeddedDocumentField('CPUInformation', required=True)
-    memory          = EmbeddedDocumentField('MemoryInformation', required=True)
-    disk            = EmbeddedDocumentField('DiskInformation', required=True)
+    cpu             = me.EmbeddedDocumentField('CPUInformation', required=True)
+    memory          = me.EmbeddedDocumentField('MemoryInformation', required=True)
+    disk            = me.EmbeddedDocumentField('DiskInformation', required=True)
     
-    processor_status = ListField(ReferenceField(ProcessorStatus, dbref=True))
+    processor_status = me.ListField(me.ReferenceField(ProcessorStatus, dbref=True))
     
