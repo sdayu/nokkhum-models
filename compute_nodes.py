@@ -53,6 +53,8 @@ class ComputeNode(me.Document):
     
     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
+    
+    resource_updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
 
     vm      = me.EmbeddedDocumentField(VMInstance)
     
