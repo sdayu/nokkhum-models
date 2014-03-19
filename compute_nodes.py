@@ -70,7 +70,7 @@ class ComputeNode(me.Document):
         delta = datetime.timedelta(minutes=1)
         now = datetime.datetime.now()
                 
-        if self.updated_date > now-delta:
+        if self.updated_resource_date > now-delta:
             return True
         
         return False
