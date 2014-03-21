@@ -71,7 +71,8 @@ class ComputeNode(me.Document):
         now = datetime.datetime.now()
                 
         if self.updated_resource_date > now-delta:
-            return True
+            if self.cpu.used > 0 or self.memory.used > 0:
+                return True
         
         return False
     
