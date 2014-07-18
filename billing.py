@@ -3,13 +3,13 @@ Created on Feb 3, 2014
 
 @author: wongpiti
 '''
-import datetime
 import mongoengine as me
+
 
 class ServicePlan(me.Document):
     meta = {'collection': 'service_plans'}
-    
-    name        = me.StringField(max_length=100, required=True)
+
+    name = me.StringField(max_length=100, required=True)
     description = me.StringField()
     server_cost = me.FloatField()
     office_rent = me.FloatField()
