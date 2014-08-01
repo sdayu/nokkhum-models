@@ -30,9 +30,9 @@ class ComputeNodeReport(me.Document):
     reported_date = me.DateTimeField(
         required=True, default=datetime.datetime.now)
 
-    cpu = me.EmbeddedDocumentField('CPUInformation', required=True)
-    memory = me.EmbeddedDocumentField('MemoryInformation', required=True)
-    disk = me.EmbeddedDocumentField('DiskInformation', required=True)
+    cpu = me.EmbeddedDocumentField('CPUUsage', required=True)
+    memory = me.EmbeddedDocumentField('MemoryUsage', required=True)
+    disk = me.EmbeddedDocumentField('DiskUsage', required=True)
 
     processor_status = me.ListField(
         me.ReferenceField(ProcessorStatus, dbref=True))

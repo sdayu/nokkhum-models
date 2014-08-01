@@ -19,13 +19,15 @@ class CPUUsage(me.EmbeddedDocument):
 class MemoryUsage(me.EmbeddedDocument):
     used = me.IntField(default=0)
     free = me.IntField(default=0)
+    total = me.IntField(required=True, default=0)
 
 
 class DiskUsage(me.EmbeddedDocument):
     used = me.IntField(default=0)
     free = me.IntField(default=0)
     percent = me.FloatField(default=0)  # show in percent
-
+    total = me.IntField(required=True, default=0)
+    
 
 class VMInstance(me.EmbeddedDocument):
     name = me.StringField(max_length=100, required=True)
