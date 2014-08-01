@@ -27,7 +27,7 @@ class DiskUsage(me.EmbeddedDocument):
     free = me.IntField(default=0)
     percent = me.FloatField(default=0)  # show in percent
     total = me.IntField(required=True, default=0)
-    
+
 
 class VMInstance(me.EmbeddedDocument):
     name = me.StringField(max_length=100, required=True)
@@ -118,7 +118,7 @@ class ComputeNode(me.Document):
         return self.resource_records[-1]
 
     def push_resource(self, resource_usage):
-        while len(self.resource_usage) > MAX_RECORD:
-            self.resource_usage.pop(0)
+        while len(self.resource_records) > MAX_RECORD:
+            self.resource_records.pop(0)
 
         self.resource_records.append(resource_usage)
