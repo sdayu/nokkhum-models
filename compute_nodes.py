@@ -4,21 +4,24 @@ import datetime
 MAX_RECORD = 30
 
 
-class CPUInformation(me.EmbeddedDocument):
-    frequency = me.FloatField(default=0)  # MHz unit
-    count = me.IntField(required=True, default=0)
+class ResourceInformation(me.EmbeddedDocument):
+    cpu_frequency = me.FloatField(default=0)  # MHz unit
+    cpu_count = me.IntField(required=True, default=0)
+    total_memory = me.IntField(required=True, default=0)
+    total_disk = me.IntField(required=True, default=0)
+
+
+class CPUUsage(me.EmbeddedDocument):
     used = me.FloatField(default=0)  # show in percent
     used_per_cpu = me.ListField(me.FloatField())
 
 
-class MemoryInformation(me.EmbeddedDocument):
-    total = me.IntField(required=True, default=0)
+class MemoryUsage(me.EmbeddedDocument):
     used = me.IntField(default=0)
     free = me.IntField(default=0)
 
 
-class DiskInformation(me.EmbeddedDocument):
-    total = me.IntField(required=True, default=0)
+class DiskUsage(me.EmbeddedDocument):
     used = me.IntField(default=0)
     free = me.IntField(default=0)
     percent = me.FloatField(default=0)  # show in percent
@@ -47,13 +50,13 @@ class VMInstance(me.EmbeddedDocument):
     extra = me.DictField()
 
 
-class ComputingResource(me.EmbeddedDocument):
+class ResourceUsage(me.EmbeddedDocument):
     cpu = me.EmbeddedDocumentField(
-        "CPUInformation", required=True, default=CPUInformation())
+        "CPUUsage", required=True, default=CPUUsage())
     memory = me.EmbeddedDocumentField(
-        "MemoryInformation", required=True, default=MemoryInformation())
+        "MemoryUsage", required=True, default=MemoryUsage())
     disk = me.EmbeddedDocumentField(
-        "DiskInformation", required=True, default=DiskInformation())
+        "DiskUsage", required=True, default=DiskUsage())
 
     reported_date = me.DateTimeField(
         required=True, default=datetime.datetime.now)
@@ -69,8 +72,9 @@ class ComputeNode(me.Document):
     host = me.StringField(max_length=100, required=True)
     machine = me.StringField(max_length=100)
 
+    resource_information = me.EmbeddedDocumentField(ResourceInformation)
     resource_records = me.ListField(
-        me.EmbeddedDocumentField(ComputingResource)
+        me.EmbeddedDocumentField(ResourceUsage)
         )
 
     created_date = me.DateTimeField(
@@ -112,7 +116,7 @@ class ComputeNode(me.Document):
         return self.resource_records[-1]
 
     def push_resource(self, computing_resource):
-        if len(self.resource_records) > MAX_RECORD:
+        while len(self.resource_records) > MAX_RECORD:
             self.resource_records.pop(0)
 
         self.resource_records.append(computing_resource)
