@@ -117,8 +117,8 @@ class ComputeNode(me.Document):
 
         return self.resource_records[-1]
 
-    def push_resource(self, computing_resource):
-        while len(self.resource_records) > MAX_RECORD:
-            self.resource_records.pop(0)
+    def push_resource(self, resource_usage):
+        while len(self.resource_usage) > MAX_RECORD:
+            self.resource_usage.pop(0)
 
-        self.resource_records.append(computing_resource)
+        self.resource_records.append(resource_usage)
