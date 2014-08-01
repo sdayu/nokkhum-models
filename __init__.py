@@ -7,10 +7,11 @@ from .groups import (Group,
                      GroupCollboratorPermission)
 from .cameras import Camera, CameraModel, Manufactory
 from .image_processors import ImageProcessor
-from .compute_nodes import (CPUInformation,
-                            MemoryInformation,
-                            DiskInformation,
-                            ComputingResource,
+from .compute_nodes import (CPUUsage,
+                            MemoryUsage,
+                            DiskUsage,
+                            ResourceUsage,
+                            ResourceInformation,
                             ComputeNode,
                             VMInstance)
 from .processors import (Processor,
