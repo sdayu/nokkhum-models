@@ -15,13 +15,11 @@ class GroupCollboratorPermission(me.EmbeddedDocument):
 class GroupCollaborator(me.EmbeddedDocument):
     user = me.ReferenceField('User', required=True, dbref=True)
     camera_permissions = me.ListField(
-        me.EmbeddedDocumentField(
-            GroupCollboratorPermission)
-        )
+        me.EmbeddedDocumentField(GroupCollboratorPermission))
 
     permissions = me.ListField(me.StringField(default='user'))
-    created_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
+    created_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
 
 
 class Group(me.Document):
@@ -31,12 +29,11 @@ class Group(me.Document):
     description = me.StringField(required=True)
     status = me.StringField(required=True, default='active')
 
-    created_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
-    updated_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
+    created_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
 
-    ip_address = me.StringField(max_length=100,
-                                required=True,
-                                default='0.0.0.0')
+    ip_address = me.StringField(
+        max_length=100, required=True, default='0.0.0.0')
     collaborators = me.ListField(me.EmbeddedDocumentField(GroupCollaborator))

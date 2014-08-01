@@ -7,8 +7,8 @@ class Manufactory(me.Document):
     meta = {'collection': 'camera_manufactories'}
 
     name = me.StringField(max_length=100, required=True)
-    create_date = me.DateTimeField(required=True,
-                                   default=datetime.datetime.now)
+    create_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
 
 
 class CameraModel(me.Document):
@@ -16,8 +16,8 @@ class CameraModel(me.Document):
 
     name = me.StringField(max_length=100, required=True)
     manufactory = me.ReferenceField(Manufactory, required=True, dbref=True)
-    create_date = me.DateTimeField(required=True,
-                                   default=datetime.datetime.now)
+    create_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
 
 
 class Camera(me.Document):
@@ -41,11 +41,10 @@ class Camera(me.Document):
     camera_model = me.ReferenceField('CameraModel', required=True, dbref=True)
     project = me.ReferenceField('Project', required=True, dbref=True)
 
-    created_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
-    updated_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
+    created_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
 
-    ip_address = me.StringField(max_length=100,
-                                required=True,
-                                default='0.0.0.0')
+    ip_address = me.StringField(
+        max_length=100, required=True, default='0.0.0.0')

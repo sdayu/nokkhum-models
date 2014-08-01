@@ -18,8 +18,8 @@ class Collaborator(me.EmbeddedDocument):
         me.EmbeddedDocumentField(CollboratorPermission))
 
     permissions = me.ListField(me.StringField(default='view'))
-    created_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
+    created_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
 
 
 class Project(me.Document):
@@ -29,14 +29,13 @@ class Project(me.Document):
     description = me.StringField(required=True)
     status = me.StringField(required=True, default='active')
 
-    created_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
-    updated_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
+    created_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
 
-    ip_address = me.StringField(max_length=100,
-                                required=True,
-                                default='0.0.0.0')
+    ip_address = me.StringField(
+        max_length=100, required=True, default='0.0.0.0')
 
     owner = me.ReferenceField('User', required=True, dbref=True)
     collaborators = me.ListField(me.EmbeddedDocumentField(Collaborator))
