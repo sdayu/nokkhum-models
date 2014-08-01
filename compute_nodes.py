@@ -96,16 +96,20 @@ class ComputeNode(me.Document):
         now = datetime.datetime.now()
 
         if self.updated_resource_date > now - delta:
-            if self.cpu.used > 0 or self.memory.used > 0:
+            resource = self.get_current_resources()
+            if resource is None:
+                return False
+
+            if resource.cpu.used > 0 or resource.memory.used > 0:
                 return True
 
         return False
 
     def get_current_resources(self):
-        if len(self.records) == 0:
+        if len(self.resource_records) == 0:
             return None
 
-        return self.records[-1]
+        return self.resource_records[-1]
 
     def push_resource(self, computing_resource):
         if len(self.resource_records) > MAX_RECORD:
