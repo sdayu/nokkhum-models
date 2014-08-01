@@ -13,7 +13,7 @@ class Facetraining(me.Document):
     name = me.StringField(required=True)
     faceid = me.StringField(required=True)
 
-    created_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
-    updated_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
+    created_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)

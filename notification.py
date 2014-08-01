@@ -17,12 +17,10 @@ class Notification(me.Document):
 
     url = me.StringField(required=True, default='')
 
-    created_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
-    updated_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
+    created_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
 
-    typenoti = me.StringField(required=True,
-                              default='faceregnoti')
-    status = me.StringField(required=True,
-                            default='False')
+    typenoti = me.StringField(required=True, default='faceregnoti')
+    status = me.StringField(required=True, default='False')

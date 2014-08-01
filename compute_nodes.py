@@ -1,6 +1,8 @@
 import mongoengine as me
 import datetime
 
+MAX_RECORD = 30
+
 
 class CPUInformation(me.EmbeddedDocument):
     frequency = me.FloatField(default=0)  # MHz unit
@@ -36,13 +38,27 @@ class VMInstance(me.EmbeddedDocument):
     ip_address = me.StringField()
     private_ip_address = me.StringField()
 
-    started_instance_date = me.DateTimeField(required=True,
-                                             default=datetime.datetime.now)
+    started_instance_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
     terminated_instance_date = me.DateTimeField()
 
     status = me.StringField(required=True, default='pending')
 
     extra = me.DictField()
+
+
+class ComputingResource(me.EmbeddedDocument):
+    cpu = me.EmbeddedDocumentField(
+        "CPUInformation", required=True, default=CPUInformation())
+    memory = me.EmbeddedDocumentField(
+        "MemoryInformation", required=True, default=MemoryInformation())
+    disk = me.EmbeddedDocumentField(
+        "DiskInformation", required=True, default=DiskInformation())
+
+    reported_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
+
+    report = me.ReferenceField('ComputeNodeReport')
 
 
 class ComputeNode(me.Document):
@@ -52,23 +68,18 @@ class ComputeNode(me.Document):
     system = me.StringField(max_length=100)
     host = me.StringField(max_length=100, required=True)
     machine = me.StringField(max_length=100)
-    cpu = me.EmbeddedDocumentField("CPUInformation",
-                                   required=True,
-                                   default=CPUInformation())
-    memory = me.EmbeddedDocumentField("MemoryInformation",
-                                      required=True,
-                                      default=MemoryInformation())
-    disk = me.EmbeddedDocumentField("DiskInformation",
-                                    required=True,
-                                    default=DiskInformation())
 
-    created_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
-    updated_date = me.DateTimeField(required=True,
-                                    default=datetime.datetime.now)
+    resource_records = me.ListField(
+        me.EmbeddedDocumentField(ComputingResource)
+        )
 
-    updated_resource_date = me.DateTimeField(required=True,
-                                             default=datetime.datetime.now)
+    created_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
+
+    updated_resource_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
 
     vm = me.EmbeddedDocumentField(VMInstance)
 
@@ -84,8 +95,20 @@ class ComputeNode(me.Document):
         delta = datetime.timedelta(minutes=1)
         now = datetime.datetime.now()
 
-        if self.updated_resource_date > now-delta:
+        if self.updated_resource_date > now - delta:
             if self.cpu.used > 0 or self.memory.used > 0:
                 return True
 
         return False
+
+    def get_current_resources(self):
+        if len(self.records) == 0:
+            return None
+
+        return self.records[-1]
+
+    def push_resource(self, computing_resource):
+        if len(self.resource_records) > MAX_RECORD:
+            self.resource_records.pop(0)
+
+        self.resource_records.append(computing_resource)
