@@ -7,7 +7,7 @@ class Manufactory(me.Document):
     meta = {'collection': 'camera_manufactories'}
 
     name = me.StringField(max_length=100, required=True)
-    create_date = me.DateTimeField(
+    created_date = me.DateTimeField(
         required=True, default=datetime.datetime.now)
 
 
@@ -16,7 +16,7 @@ class CameraModel(me.Document):
 
     name = me.StringField(max_length=100, required=True)
     manufactory = me.ReferenceField(Manufactory, required=True, dbref=True)
-    create_date = me.DateTimeField(
+    created_date = me.DateTimeField(
         required=True, default=datetime.datetime.now)
 
 
