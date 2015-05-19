@@ -13,7 +13,7 @@ class ImageProcessorExperiment(me.Document):
     computing_model = me.EmbeddedDocumentField(ComputingModel)
 
     image_analysis = me.StringField()
-    video_size = me.StringField()
+    video_size = me.ListField()
     fps = me.IntField()
 
     results = me.DictField()
