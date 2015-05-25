@@ -2,7 +2,7 @@ import mongoengine as me
 import datetime
 
 
-class MachineSpecification(me.EmbeddedDocument)
+class MachineSpecification(me.EmbeddedDocument):
     cpu_model = me.StringField()
     cpu_frequency = me.FloatField()
     cpu_count = me.IntField()
@@ -11,6 +11,7 @@ class MachineSpecification(me.EmbeddedDocument)
     name = me.StingField()
     memory = me.FloatField()
     disk = me.IntField()
+
 
 class ImageProcessorExperiment(me.Document):
     meta = {'collection': 'image_processor_experiments'}
