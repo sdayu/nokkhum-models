@@ -7,7 +7,7 @@ class MachineSpecification(me.EmbeddedDocument):
     cpu_frequency = me.FloatField()
     cpu_count = me.IntField()
     machine = me.StringField()
-    system = me.StingField()
+    system = me.StringField()
     name = me.StringField()
     memory = me.FloatField()
     disk = me.IntField()
