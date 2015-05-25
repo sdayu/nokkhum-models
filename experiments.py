@@ -24,5 +24,7 @@ class ImageProcessorExperiment(me.Document):
 
     results = me.DictField()
 
-    created_date = me.DatetimeField()
-    updated_date = me.DatetimeField()
+    created_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
+    updated_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
