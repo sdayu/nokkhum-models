@@ -13,8 +13,8 @@ class MachineSpecification(me.EmbeddedDocument):
     disk = me.IntField()
 
 
-class ImageProcessorExperiment(me.Document):
-    meta = {'collection': 'image_processor_experiments'}
+class ImageProcessingExperiment(me.Document):
+    meta = {'collection': 'image_processing_experiments'}
 
     machine_specification = me.EmbeddedDocumentField(MachineSpecification)
 

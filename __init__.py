@@ -26,7 +26,7 @@ from .facetrainings import Facetraining
 from .billing import ServicePlan
 
 from .experiments import (MachineSpecification,
-                          ImageProcessorExperiment)
+                          ImageProcessingExperiment)
 
 
 from mongoengine import connect
