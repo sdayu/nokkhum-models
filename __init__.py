@@ -24,6 +24,11 @@ from .notification import Notification
 from .forums import Forum, Reply
 from .facetrainings import Facetraining
 from .billing import ServicePlan
+
+from .experiments import (MachineSpecification,
+                          ImageProcessorExperiment)
+
+
 from mongoengine import connect
 
 
