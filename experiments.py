@@ -16,7 +16,7 @@ class MachineSpecification(me.EmbeddedDocument):
 class ImageProcessorExperiment(me.Document):
     meta = {'collection': 'image_processor_experiments'}
 
-    computing_model = me.EmbeddedDocumentField(MachineSpecification)
+    machine_specification = me.EmbeddedDocumentField(MachineSpecification)
 
     image_analysis = me.StringField()
     video_size = me.ListField()
