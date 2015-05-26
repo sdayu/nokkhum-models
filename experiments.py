@@ -21,6 +21,7 @@ class ImageProcessingExperiment(me.Document):
     image_analysis = me.StringField()
     video_size = me.ListField()
     fps = me.IntField()
+    heuristic = me.DictField()
 
     results = me.DictField()
 
