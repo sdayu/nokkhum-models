@@ -9,8 +9,8 @@ class MachineSpecification(me.EmbeddedDocument):
     machine = me.StringField()
     system = me.StringField()
     name = me.StringField()
-    memory = me.FloatField()
-    disk = me.IntField()
+    total_memory = me.FloatField()
+    total_disk = me.IntField()
 
 
 class ImageProcessingExperiment(me.Document):
