@@ -9,7 +9,7 @@ class MachineSpecification(me.EmbeddedDocument):
     machine = me.StringField()
     system = me.StringField()
     name = me.StringField()
-    total_memory = me.FloatField()
+    total_memory = me.IntField()
     total_disk = me.IntField()
 
 
