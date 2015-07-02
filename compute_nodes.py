@@ -122,3 +122,15 @@ class ComputeNode(me.Document):
             self.resource_records.pop(0)
 
         self.resource_records.append(resource_usage)
+
+    def push_responsed_date(self, added_date=None):
+        if 'responsed_date' not in self.extra:
+            compute_node.extra['responsed_date'] = list()
+
+        while(len(compute_node.extra['responsed_date']) > MAX_RECORD):
+            compute_node.extra['responsed_date'].pop(0)
+
+        if added_date == None:
+            added_date = datetime.datetime.now()
+        
+        compute_node.extra['responsed_date'].append(added_date)
