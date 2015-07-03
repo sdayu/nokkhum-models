@@ -125,12 +125,13 @@ class ComputeNode(me.Document):
 
     def push_responsed_date(self, added_date=None):
         if 'responsed_date' not in self.extra:
-            compute_node.extra['responsed_date'] = list()
+            self.extra['responsed_date'] = list()
 
-        while(len(compute_node.extra['responsed_date']) > MAX_RECORD):
-            compute_node.extra['responsed_date'].pop(0)
+        while(len(self.extra['responsed_date']) > MAX_RECORD):
+            self.extra['responsed_date'].pop(0)
 
         if added_date == None:
             added_date = datetime.datetime.now()
         
-        compute_node.extra['responsed_date'].append(added_date)
+        self.extra['responsed_date'].append(added_date)
+
