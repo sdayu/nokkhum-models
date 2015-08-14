@@ -4,11 +4,15 @@ import datetime
 MAX_RECORD = 30
 
 
-class ResourceInformation(me.EmbeddedDocument):
-    cpu_frequency = me.FloatField(default=0)  # MHz unit
-    cpu_count = me.IntField(required=True, default=0)
-    total_memory = me.IntField(required=True, default=0)
-    total_disk = me.IntField(required=True, default=0)
+class MachineSpecification(me.EmbeddedDocument):
+    cpu_model = me.StringField()
+    cpu_frequency = me.FloatField()
+    cpu_count = me.IntField()
+    machine = me.StringField()
+    system = me.StringField()
+    name = me.StringField()
+    total_memory = me.IntField()
+    total_disk = me.IntField()
 
 
 class CPUUsage(me.EmbeddedDocument):
@@ -70,11 +74,10 @@ class ComputeNode(me.Document):
     meta = {'collection': 'compute_nodes'}
 
     name = me.StringField(max_length=100, required=True)
-    system = me.StringField(max_length=100)
     host = me.StringField(max_length=100, required=True)
-    machine = me.StringField(max_length=100)
 
-    resource_information = me.EmbeddedDocumentField(ResourceInformation)
+    machine_specification = me.EmbeddedDocumentField(MachineSpecification)
+
     resource_records = me.ListField(
         me.EmbeddedDocumentField(ResourceUsage)
         )

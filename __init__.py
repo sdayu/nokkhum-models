@@ -11,9 +11,9 @@ from .compute_nodes import (CPUUsage,
                             MemoryUsage,
                             DiskUsage,
                             ResourceUsage,
-                            ResourceInformation,
                             ComputeNode,
-                            VMInstance)
+                            VMInstance,
+                            MachineSpecification)
 from .processors import (Processor,
                          ProcessorCommandQueue,
                          ProcessorRunFail,
@@ -25,8 +25,7 @@ from .forums import Forum, Reply
 from .facetrainings import Facetraining
 from .billing import ServicePlan
 
-from .experiments import (MachineSpecification,
-                          ImageProcessingExperiment)
+from .experiments import (ImageProcessingExperiment)
 
 
 from mongoengine import connect

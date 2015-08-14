@@ -1,16 +1,7 @@
 import mongoengine as me
 import datetime
 
-
-class MachineSpecification(me.EmbeddedDocument):
-    cpu_model = me.StringField()
-    cpu_frequency = me.FloatField()
-    cpu_count = me.IntField()
-    machine = me.StringField()
-    system = me.StringField()
-    name = me.StringField()
-    total_memory = me.IntField()
-    total_disk = me.IntField()
+from .compute_nodes import MachineSpecification
 
 
 class ImageProcessingExperiment(me.Document):
