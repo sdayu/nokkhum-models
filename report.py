@@ -33,6 +33,7 @@ class ComputeNodeReport(me.Document):
     cpu = me.EmbeddedDocumentField('CPUUsage', required=True)
     memory = me.EmbeddedDocumentField('MemoryUsage', required=True)
     disk = me.EmbeddedDocumentField('DiskUsage', required=True)
+    system_load = me.EmbeddedDocumentField('SystemLoad', required=True)
 
     processor_status = me.ListField(
         me.ReferenceField(ProcessorStatus, dbref=True))
