@@ -33,6 +33,11 @@ class DiskUsage(me.EmbeddedDocument):
     total = me.IntField(required=True, default=0)
 
 
+class SystemLoad(me.EmbeddedDocument):
+    cpu = me.FloatField(default=0)
+    memory = me.IntField(default=0)
+
+
 class VMInstance(me.EmbeddedDocument):
     name = me.StringField(max_length=100, required=True)
 
@@ -58,11 +63,13 @@ class VMInstance(me.EmbeddedDocument):
 
 class ResourceUsage(me.EmbeddedDocument):
     cpu = me.EmbeddedDocumentField(
-        "CPUUsage", required=True, default=CPUUsage())
+        'CPUUsage', required=True, default=CPUUsage())
     memory = me.EmbeddedDocumentField(
-        "MemoryUsage", required=True, default=MemoryUsage())
+        'MemoryUsage', required=True, default=MemoryUsage())
     disk = me.EmbeddedDocumentField(
-        "DiskUsage", required=True, default=DiskUsage())
+        'DiskUsage', required=True, default=DiskUsage())
+    system_load = me.EmbeddedDocumentField(
+        'SystemLoad', required=True, default=SystemLoad())
 
     reported_date = me.DateTimeField(
         required=True, default=datetime.datetime.now)
@@ -135,6 +142,6 @@ class ComputeNode(me.Document):
 
         if added_date == None:
             added_date = datetime.datetime.now()
-        
+
         self.extra['responsed_date'].append(added_date)
 
